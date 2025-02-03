@@ -1,0 +1,257 @@
+/* Custom Navbar */
+.tutorial-navbar {
+    background-color: black;
+    padding: 10px 20px;
+}
+
+/* Logo Styling */
+.tutorial-logo {
+    height: 40px;
+}
+
+/* Profile Section */
+.tutorial-profile-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tutorial-profile-text {
+    color: white;
+    font-weight: bold;
+}
+
+/* Profile Image Placeholder */
+.tutorial-profile-image {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: white;
+}
+
+
+.tutorial-body {
+    /* background: url('{{ asset(\'images/bg.png\') }}');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh; /* Full viewport height */
+    /* background-size: 300px auto, cover, cover; *
+    background-attachment: fixed; */
+}
+.tutorial-body .tutorial-container {
+    max-width: 900px;
+    margin: auto;
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+}
+.tutorial-body .step-indicator {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.tutorial-body .step {
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    text-align: center;
+}
+.tutorial-body .step-active {
+    background-color: #51A6A2;
+    color: white;
+}
+.tutorial-body .step-inactive {
+    background-color: #B92B27;
+    color: white;
+}
+.tutorial-body .step + .step {
+    margin-left: 5px;
+}
+.tutorial-body .content {
+    text-align: center;
+}
+.tutorial-body .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+.tutorial-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* background: url('/images/tutorial-page2.png') no-repeat center center/cover; */
+}
+
+.tutorial-box {
+    background: rgba(100, 0, 0, 0.7); /* Semi-transparent */
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    width: 80%;
+    max-width: 900px;
+    text-align: center;
+}
+
+.tutorial-tabs {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    border: none;
+    background: #ff5733;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.tab-btn.active {
+    background: #2ecc71;
+}
+
+.tutorial-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.tutorial-image img {
+    max-width: 350px;
+    border-radius: 5px;
+}
+
+#tutorial-text {
+    text-align: left;
+    max-width: 450px;
+}
+
+.highlight-red {
+    color: red;
+    font-weight: bold;
+}
+
+.highlight-green {
+    color: #6aff6a;
+    font-weight: bold;
+}
+
+.traffic-scale {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.scale-bar {
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: white;
+    padding: 10px 0;
+}
+
+.ideal {
+    color: #6aff6a;
+}
+
+.threshold {
+    color: orange;
+}
+
+.max-congestion {
+    color: red;
+}
+
+.scale-line {
+    width: 100%;
+    height: 2px;
+    background: white;
+    position: relative;
+    margin-top: 5px;
+}
+
+.tutorial-navigation {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-btn {
+    background: white;
+    color: black;
+    padding: 5px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.nav-btn:hover {
+    background: lightgray;
+}
+
+#parameter-image img {
+    max-width: 500px;  /* Adjust this value as needed */
+    height: auto;
+    display: block;
+    /* margin: 10px auto; /* Center the image */
+}
+
+
+.impact-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.impact-card {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    width: 30%;
+    text-align: center;
+    backdrop-filter: blur(5px);
+    color: white;
+    font-size: 16px;
+}
+
+.impact-card i {
+    font-size: 30px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.start-btn-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.start-btn {
+    background: #2ecc71;
+    color: white;
+    font-size: 20px;
+    padding: 10px 25px;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.start-btn i {
+    margin-left: 5px;
+}
+
+.start-btn:hover {
+    background: #27ae60;
+}

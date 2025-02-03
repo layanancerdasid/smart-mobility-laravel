@@ -1,0 +1,49 @@
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Component;
+
+class Simulations extends Component
+{
+    // Data simulasi
+    public $simulations = [
+        [
+            'id' => 1,
+            'title' => 'Traffic Flow',
+            'subtitle' => 'Smart Mobility',
+            'description' => 'Simulasi untuk mengelola aliran lalu lintas dengan efisien.',
+            'image' => 'https://unsplash.com/photos/photo-of-roadway-between-buildings-XVUQfCkcaUg',
+            'route' => 'traffic-flow'
+        ],
+        [
+            'id' => 2,
+            'title' => 'Congestion',
+            'subtitle' => 'Smart Mobility',
+            'description' => 'Simulasi untuk mengatasi kemacetan di area perkotaan.',
+            'image' => 'https://unsplash.com/photos/a-crowded-street-filled-with-lots-of-traffic-VubGkfQjNFk',
+            'route' => 'congestions'
+        ],
+        [
+            'id' => 3,
+            'title' => 'Intersection',
+            'subtitle' => 'Smart Mobility',
+            'description' => 'Simulasi untuk mengelola persimpangan dengan aman.',
+            'image' => 'https://unsplash.com/photos/aerial-photography-of-buildings-and-vehicles-OkOE0G_GC8Q',
+            'route' => 'intersections'
+        ],
+        [
+            'id' => 4,
+            'title' => 'Travel Time',
+            'subtitle' => 'Smart Mobility',
+            'description' => 'Simulasi untuk memperkirakan waktu perjalanan di rute tertentu.',
+            'image' => 'https://unsplash.com/photos/time-lapse-photography-of-road-during-nighttime-bi2UXH9GzJs',
+            'route' => 'travel-times'
+        ],
+    ];
+
+    public function render()
+    {
+        return view('livewire.simulations');
+    }
+}
