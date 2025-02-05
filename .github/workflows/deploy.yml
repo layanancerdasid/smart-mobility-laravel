@@ -3,7 +3,7 @@ name: Deploy Laravel to Server
 on:
   push:
     branches:
-      - main  # Sesuaikan dengan branch utama repo
+      - main  # Deploy hanya dari branch main
 
 jobs:
   deploy:
@@ -16,17 +16,17 @@ jobs:
       - name: Setup SSH Key
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          echo "${{ secrets.SSH_PRIVATE_KEY_DEPLOY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 103.13.206.28 >> ~/.ssh/known_hosts
-          
+
       - name: Debug SSH Connection
         run: |
           ssh -i ~/.ssh/id_rsa -v mobility@103.13.206.28 "echo Connected!"
 
       - name: Deploy to Server
         run: |
-          ssh mobility@103.13.206.28 "
+          ssh -i ~/.ssh/id_rsa mobility@103.13.206.28 << 'EOF'
           cd /var/www/laravel &&
           git pull origin main &&
           composer install --no-dev --optimize-autoloader &&
@@ -35,4 +35,4 @@ jobs:
           php artisan config:clear &&
           php artisan queue:restart &&
           sudo systemctl restart nginx
-          "
+          EOF
