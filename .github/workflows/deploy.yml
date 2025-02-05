@@ -19,6 +19,10 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
           chmod 600 ~/.ssh/id_rsa
           ssh-keyscan -H 103.13.206.28 >> ~/.ssh/known_hosts
+          
+      - name: Debug SSH Connection
+        run: |
+          ssh -i ~/.ssh/id_rsa -v mobility@103.13.206.28 "echo Connected!"
 
       - name: Deploy to Server
         run: |
