@@ -1,0 +1,140 @@
+.intersection-sim-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.intersection-sim-box {
+    background: rgba(100, 0, 0, 0.7); /* Semi-transparent */
+    padding: 20px;
+    border-radius: 10px;
+    color: white;
+    width: 100%;
+    max-width: 1200px;
+    min-height: 500px;
+}
+
+.intersection-sim-box .custom-btn {
+    background-color: #00C0C1 !important;
+    color: white !important;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+}
+
+
+.intersection-sim-box .simulator-box {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 1100px;
+    margin: auto;
+    color: black;
+}
+
+.intersection-sim-box .simulator-box .choose-city-btn {
+    background-color: #00C0C1;
+    color: white;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+}
+
+.intersection-sim-box .simulator-box .choose-city-btn:hover {
+    background-color: #009a9b;
+}
+
+.intersection-sim-box .simulator-box .intersection-img {
+    width: 100px; /* Adjust size based on UI */
+}
+
+.intersection-sim-box .simulator-box .input-group-box {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.intersection-sim-box .simulator-box .input-group-box label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+
+.intersection-sim-box .traffic-light-img {
+    width: 100px;
+}
+
+.intersection-sim-box .input-group-box {
+    background: #f8f8f8;
+    padding: 15px;
+    border-radius: 8px;
+    width: 100%;
+}
+
+.intersection-sim-box .input-group-box label {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.intersection-sim-box .phase-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.intersection-sim-box .phase-card {
+    background: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.intersection-sim-box .phase-card img {
+    width: 80px;
+}
+
+.intersection-sim-box .phase-img {
+    width: 80px;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Rotate each phase accordingly */
+.intersection-sim-box .phase-1 { transform: rotate(0deg); }
+.intersection-sim-box .phase-2 { transform: rotate(90deg); }
+.intersection-sim-box .phase-3 { transform: rotate(180deg); }
+.intersection-sim-box .phase-4 { transform: rotate(270deg); }
+
+
+.intersection-sim-box .traffic-chart {
+    width: 100%;
+    height: 350px;
+}
+
+.intersection-sim-box .analysis-table {
+    font-size: 14px;
+    text-align: center;
+}
+
+.intersection-sim-box .analysis-table th, .analysis-table td {
+    padding: 8px;
+    vertical-align: middle;
+}
+
+.intersection-sim-box .highlight {
+    background-color: yellow !important;
+    font-weight: bold;
+}
+
+.intersection-sim-box .analysis-table-wrapper {
+    overflow-x: auto;
+    max-width: 100%;
+}
+.intersection-sim-box .analysis-table {
+    width: 100%;
+    min-width: 800px; /* Sesuaikan jika perlu */
+}

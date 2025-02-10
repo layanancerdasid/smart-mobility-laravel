@@ -1,0 +1,16 @@
+.nav-pills {
+    background: linear-gradient(#CC0001, #800000);
+    border-radius: 50px;
+    padding: 5px;
+}
+
+.nav-pills .nav-link {
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+}
+
+.nav-pills .nav-link.active {
+    background-color: #00C0C1;
+    color: white;
+}
