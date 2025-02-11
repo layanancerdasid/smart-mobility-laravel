@@ -138,3 +138,11 @@
     width: 100%;
     min-width: 800px; /* Sesuaikan jika perlu */
 }
+
+.intersection-sim-box .sub-page {
+    min-height: 450px; /* Sesuaikan tinggi minimum agar paging tetap di bawah */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Menyusun elemen agar paging tetap di bawah */
+}
+

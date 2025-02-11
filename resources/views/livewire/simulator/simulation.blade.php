@@ -17,8 +17,8 @@
 
     <div class="tab-content mt-3" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-data-source" role="tabpanel" aria-labelledby="pills-data-source-tab">
-            <div style="display: hidden">
-                {{-- <h6>Select Data Source</h6>
+            <div id="sub-page-1-1" class="sub-page">
+                <h6>Select Data Source</h6>
                 <div class="d-flex justify-content-left mt-3">
                     <button class="btn custom-btn me-3">
                         <i class="bi bi-plus-lg"></i> Data Dummy
@@ -26,9 +26,10 @@
                     <button class="btn custom-btn">
                         <i class="bi bi-plus-lg"></i> Data Real
                     </button>
-                </div> --}}
-
-                {{-- <h6> Design intersection conditions to accommodate dynamic input traffic flows </h6>
+                </div>
+            </div>
+            <div id="sub-page-1-2" class="sub-page" style="display: none;">
+                <h6> Design intersection conditions to accommodate dynamic input traffic flows </h6>
                 <div class="simulator-box shadow-lg">
                     <div class="row">
                         <!-- City Demographics Section -->
@@ -62,11 +63,11 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
             </div>
         </div>
         <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-            {{-- <h6 class="text-white">Design an ATCS to manage traffic flow!</h6>
+            <h6 class="text-white">Design an ATCS to manage traffic flow!</h6>
 
             <div class="simulator-box shadow-lg">
                 <div class="row">
@@ -84,7 +85,7 @@
                                 <label for="yellow-light">Yellow Light</label>
                                 <input type="text" class="form-control" id="yellow-light" placeholder="Input">
         
-                                <label for="red-light-2">Red Light</label>
+                                <label for="red-light-2">Green Light</label>
                                 <input type="text" class="form-control" id="red-light-2" placeholder="Input">
         
                                 <label for="all-red-light">All Red Light</label>
@@ -122,10 +123,10 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
         <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
-            {{-- <h3 class="text-white">Here are the analysis insights from the intersection design you crafted!</h3>
+            <h3 class="text-white">Here are the analysis insights from the intersection design you crafted!</h3>
 
             <div class="simulator-box shadow-lg">
                 <div class="row">
@@ -176,10 +177,10 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
         <div class="tab-pane fade" id="pills-ulala" role="tabpanel" aria-labelledby="pills-ulala-tab">
-        {{-- INSERT KODINGANNYA disini --}}
+            {{-- This part is Page 4 --}}
             <h3 class="text-white">Intersection Evaluation Insights</h3>
             <div class="simulator-box shadow-lg">
                 @foreach($evaluationData as $timeSlot)
@@ -242,7 +243,12 @@
                         </div>
                     </div>
                 </div>
-                </
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button class="nav-btn btn btn-secondary" onclick="prevTab()">Previous</button>
+            <span id="tab-page-number">1.1/4</span>
+            <button class="nav-btn btn btn-primary" onclick="nextTab()">Next</button>
         </div>
     </div>
 </div>
@@ -251,9 +257,9 @@
     document.addEventListener("DOMContentLoaded", function() {
         Highcharts.chart('traffic-chart', {
             chart: { type: 'line' },
-            title: { text: 'Traffic Analysis Graphics' },
+            title: { text: '' },
             xAxis: { categories: ['Morning', 'Day', 'Evening'] },
-            yAxis: { title: { text: 'Vehicle Volume (vehicles/hour)' } },
+            yAxis: { title: { text: 'vehicles per day time ' } },
             series: [
                 { name: 'North', data: [2156, 2238, 2177], color: 'blue' },
                 { name: 'East', data: [3590, 3558, 3517], color: 'red' },
@@ -261,5 +267,49 @@
                 { name: 'West', data: [3612, 3613, 3618], color: 'yellow' }
             ]
         });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+        let tabs = ["pills-data-source-tab", "pills-profile-tab", "pills-contact-tab", "pills-ulala-tab"];
+        let currentTab = 0;
+        let currentSubPage = 1; // Mulai dari sub-page 1.1
+
+        function updateTabUI() {
+            if (currentTab === 0) { // Jika masih di "Data Source"
+                document.querySelectorAll(".sub-page").forEach((page, index) => {
+                    page.style.display = (index + 1 === currentSubPage) ? "block" : "none";
+                });
+                document.getElementById("tab-page-number").innerText = `1.${currentSubPage}/4`;
+
+            } else {
+                document.getElementById(tabs[currentTab]).click(); // Aktifkan tab sesuai index
+                document.getElementById("tab-page-number").innerText = `${currentTab + 1}/4`;
+            }
+
+            // Sembunyikan tombol jika di awal atau akhir
+            document.querySelector(".nav-btn:first-of-type").style.display = (currentTab === 0 && currentSubPage === 1) ? "none" : "inline-block";
+            document.querySelector(".nav-btn:last-of-type").style.display = (currentTab === tabs.length - 1) ? "none" : "inline-block";
+        }
+
+        window.nextTab = function () {
+            if (currentTab === 0 && currentSubPage < 2) {
+                currentSubPage++;
+            } else if (currentTab < tabs.length - 1) {
+                currentTab++;
+                currentSubPage = 1; // Reset sub-page saat berpindah tab
+            }
+            updateTabUI();
+        };
+
+        window.prevTab = function () {
+            if (currentTab === 0 && currentSubPage > 1) {
+                currentSubPage--;
+            } else if (currentTab > 0) {
+                currentTab--;
+                currentSubPage = 1; // Reset sub-page saat kembali tab
+            }
+            updateTabUI();
+        };
+
+        updateTabUI(); // Set awal agar tombol pertama tidak muncul
     });
 </script>
