@@ -18,7 +18,8 @@ class DatabaseSeeder extends Seeder
     $this->call(
         [
             SimpangSeeder::class,            
-            UsersTableSeeder::class,            
+            UsersTableSeeder::class,
+            TriggerSeeder::class,            
             ArusTimurSeeder::class,
             ArusBaratSeeder::class,
             ArusUtaraSeeder::class,
