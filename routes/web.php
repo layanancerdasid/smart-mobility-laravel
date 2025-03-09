@@ -12,6 +12,7 @@ use App\Livewire\Settings;
 use App\Livewire\Simulations;
 use App\Livewire\Maps;
 use App\Models\Intersection;
+use App\Livewire\SurveyPage;
 use App\Http\Controllers\IntersectionController;
 
 // Public routes
@@ -42,3 +43,6 @@ Route::get('/simulations', Simulations::class)->name('simulations');
 Route::get('/tutorial/intersections', [IntersectionController::class, 'tutorial'])->name('tutorial');
 Route::get('/simulations/intersections', [IntersectionController::class, 'simulator'])->name('simulator');
 Route::get('/simulations/intersections-check', [IntersectionController::class, 'check'])->name('check');
+
+
+Route::get('/survey', SurveyPage::class)->name('survey');
