@@ -5,11 +5,11 @@ use Livewire\Component;
 
 class SurveyFilters extends Component
 {
-    public $surveyor = "";
+    public $surveyor = "Semua";
     public $interval = "15 menit";
-    public $pendekat = "";
-    public $arah = "";
-    public $klasifikasi = "";
+    public $pendekat = "Utara";
+    public $arah = "Kanan";
+    public $klasifikasi = "Tipikal";
 
     public function downloadData()
     {

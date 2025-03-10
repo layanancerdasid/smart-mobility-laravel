@@ -36,17 +36,17 @@
                 </div>
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Simulation</span>
             </a> --}}
-            <a href="{{ route('maps') }}"
+            {{-- <a href="{{ route('maps') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('maps') ? 'active' : '' }}">
                 <div wire:ignore>
                     <i data-lucide="map" class="text-white"></i>
                 </div>
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Maps</span>
-            </a>
+            </a> --}}
             <a href="{{ route('survey') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('maps') ? 'active' : '' }}">
                 <div wire:ignore>
-                    <i data-lucide="map" class="text-white"></i>
+                    <i data-lucide="binoculars" class="text-white"></i>
                 </div>
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Survey</span>
             </a>

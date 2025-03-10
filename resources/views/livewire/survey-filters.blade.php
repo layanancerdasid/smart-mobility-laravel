@@ -5,10 +5,10 @@
             <div class="d-flex gap-2 btn-group" role="group">
                 <input type="radio" class="btn-check" id="surveyor_viana" value="VIANA" wire:model="surveyor" wire:change="$set('surveyor', 'VIANA')">
                 <label for="surveyor_viana" class="btn btn-outline-primary">VIANA</label>
-                <input type="radio" class="btn-check" id="surveyor_manual" value="manual" wire:model="surveyor" wire:change="$set('surveyor', 'manual')">
-                <label for="surveyor_manual" class="btn btn-outline-primary">manual</label>
-                <input type="radio" class="btn-check" id="surveyor_semua" value="semua" wire:model="surveyor" wire:change="$set('surveyor', 'semua')">
-                <label for="surveyor_semua" class="btn btn-outline-primary">semua</label>
+                <input type="radio" class="btn-check" id="surveyor_manual" value="Manual" wire:model="surveyor" wire:change="$set('surveyor', 'Manual')">
+                <label for="surveyor_manual" class="btn btn-outline-primary">Manual</label>
+                <input type="radio" class="btn-check" id="surveyor_semua" value="Semua" wire:model="surveyor" wire:change="$set('surveyor', 'Semua')">
+                <label for="surveyor_semua" class="btn btn-outline-primary">Semua</label>
             </div>
         </div>
 
