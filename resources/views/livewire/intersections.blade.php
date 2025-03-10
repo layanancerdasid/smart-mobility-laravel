@@ -3,7 +3,7 @@
 
         <!-- Input Pencarian -->
         <div class="mb-3">
-            <input type="text" wire:model.debounce.500ms="search" class="form-control"
+            <input type="text" wire:model.live.debounce.500ms="search" class="form-control"
                 placeholder="Cari simpang atau arah..." />
         </div>
 

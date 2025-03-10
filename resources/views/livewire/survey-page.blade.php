@@ -62,7 +62,43 @@
 
     <livewire:download-modal />
 
+    {{-- <livewire:survey-table wire:model.live="periode" wire:model.live="interval" wire:key="'survey-table-'.$periode.'-'.$interval" /> --}}
     <livewire:survey-table wire:model.live="periode" wire:model.live="interval" />
+    
+    <div class="container mt-4">
+        <h5 class="fw-bold">Keterangan Kendaraan</h5>
+        <table class="table table-bordered">
+            <thead class="table-light text-center">
+                <tr>
+                    <th>Kode</th>
+                    <th>Jenis Kendaraan</th>
+                    <th>Deskripsi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>SM</strong></td>
+                    <td>Sepeda Motor</td>
+                    <td>Kendaraan bermotor dengan 2 atau 3 roda (Sepeda Motor, Skuter, Becak Motor)</td>
+                </tr>
+                <tr>
+                    <td><strong>KS</strong></td>
+                    <td>Kendaraan Sedang</td>
+                    <td>Bus Sedang, Truk Sedang (Bus Engkel, Bus Antar Jemput, Mobil Bak, Pickup, Box)</td>
+                </tr>
+                <tr>
+                    <td><strong>KB</strong></td>
+                    <td>Kendaraan Berat</td>
+                    <td>Bus Besar (Bus AKAP, Bus Wisata, Bus Tingkat), Truk Besar (Tronton, Truk Gandeng)</td>
+                </tr>
+                <tr>
+                    <td><strong>KTB</strong></td>
+                    <td>Kendaraan Tidak Bermotor</td>
+                    <td>Sepeda, Becak, Gerobak Dorong, Kendaraan ditarik Hewan (Pedati, Delman, Andong)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     
     <script>
         document.addEventListener('livewire:initialized', function () {

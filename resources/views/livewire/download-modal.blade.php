@@ -12,11 +12,11 @@
                         <div class="row g-2">
                             <div class="col-md-6">
                                 <label class="fw-bold">Dari Tanggal</label>
-                                <input type="date" class="form-control" wire:model="startDate">
+                                <input type="date" class="form-control" wire:model.live="startDate">
                             </div>
                             <div class="col-md-6">
                                 <label class="fw-bold">Sampai Tanggal</label>
-                                <input type="date" class="form-control" wire:model="endDate">
+                                <input type="date" class="form-control" wire:model.live="endDate">
                             </div>
 
                             <div class="col-md-12 mt-2">

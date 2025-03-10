@@ -22,4 +22,14 @@ class SurveyFilters extends Component
     {
         return view('livewire.survey-filters');
     }
+
+    public function updated($property, $value)
+    {
+        \Log::info("SurveyFilters Updated: {$property} -> {$value}");
+    
+        if ($property === 'periode' || $property === 'interval') {
+            $this->dispatch('refreshSurveyTable', $this->periode, $this->interval); // Paksa SurveyTable untuk refresh
+        }
+    }
+    
 }

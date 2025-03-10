@@ -1,9 +1,5 @@
 <div class="container mt-4">
     <h5 class="fw-bold">Hasil Survei</h5>
-
-    <pre>@json($data)</pre>
-    
-    <!-- Tabel Hasil -->
     <table class="table table-bordered text-center">
         <thead class="table-light">
             <tr>
@@ -19,7 +15,14 @@
             </tr>
         </thead>
         <tbody>
+            @php $currentPeriode = null; @endphp
             @foreach ($data as $row)
+                @if ($currentPeriode !== $row['periode'])
+                    <tr class="table-primary">
+                        <td colspan="6"><strong>{{ $row['periode'] }}</strong></td>
+                    </tr>
+                    @php $currentPeriode = $row['periode']; @endphp
+                @endif
                 <tr>
                     <td>{{ $row['periode'] }}</td>
                     <td>{{ $row['waktu'] }}</td>
@@ -32,9 +35,3 @@
         </tbody>
     </table>
 </div>
-
-
-{{-- <div class="container mt-4">
-    <h5 class="fw-bold">Hasil Survei</h5>
-    <p>Livewire Berjalan dengan Baik!</p>
-</div> --}}

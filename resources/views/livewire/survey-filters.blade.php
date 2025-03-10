@@ -12,11 +12,11 @@
         <div class="col-md-12">
             <h6 class="fw-bold">Pilih Waktu Interval</h6>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', '5 menit')">5 menit</button>
-                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', '10 menit')">10 menit</button>
-                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', '15 menit')">15 menit</button>
-                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', 'Jam')">Jam</button>
-                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', 'Semua')">Semua</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', '5 menit'); $dispatch('updateFilters', periode, '5 menit')">5 Menit</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', '10 menit'); $dispatch('updateFilters', periode, '10 menit')">10 Menit</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', '15 menit'); $dispatch('updateFilters', periode, '15 menit')">15 Menit</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', 'Jam'); $dispatch('updateFilters', periode, 'Jam')">Jam</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('interval', 'Semua'); $dispatch('updateFilters', periode, 'Jam')">Semua</button>
             </div>
         </div>
 

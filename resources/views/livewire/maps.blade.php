@@ -11,14 +11,14 @@
                 <div class="col-6">
                     <label class="form-label small" style="font-size: 0.8rem;">Low (0 - <span
                             x-text="$wire.thresholds.low"></span>)</label>
-                    <input type="number" class="form-control form-control-sm py-1" wire:model="thresholds.low"
+                    <input type="number" class="form-control form-control-sm py-1" wire:model.live="thresholds.low"
                         min="0">
                 </div>
                 <div class="col-6">
                     <label class="form-label small" style="font-size: 0.8rem;">Medium (<span
                             x-text="$wire.thresholds.low + 1"></span> - <span
                             x-text="$wire.thresholds.medium"></span>)</label>
-                    <input type="number" class="form-control form-control-sm py-1" wire:model="thresholds.medium"
+                    <input type="number" class="form-control form-control-sm py-1" wire:model.live="thresholds.medium"
                         :min="$wire.thresholds.low + 1">
                 </div>
                 <div class="col-12">
@@ -29,7 +29,7 @@
         </div>
 
         <!-- Traffic Count Input -->
-        <form wire:submit.prevent="updateAllDirections">
+        <form wire:submit="updateAllDirections">
             @foreach (['north' => 'Utara', 'south' => 'Selatan', 'east' => 'Timur', 'west' => 'Barat'] as $key => $label)
                 <div class="mb-2">
                     <h6 class="border-bottom pb-1 mb-2" style="font-size: 0.9rem;">{{ $label }}</h6>

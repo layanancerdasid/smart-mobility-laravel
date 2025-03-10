@@ -61,25 +61,25 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form wire:submit.prevent="addCamera">
+                    <form wire:submit="addCamera">
                         <div class="mb-3">
                             <label class="form-label">Nama Kamera</label>
-                            <input type="text" class="form-control" wire:model="newCameraName"
+                            <input type="text" class="form-control" wire:model.live="newCameraName"
                                 placeholder="Masukkan nama kamera" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">URL Kamera</label>
-                            <input type="url" class="form-control" wire:model="newCameraUrl"
+                            <input type="url" class="form-control" wire:model.live="newCameraUrl"
                                 placeholder="Masukkan URL kamera" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" wire:model="newCameraLocation"
+                            <input type="text" class="form-control" wire:model.live="newCameraLocation"
                                 placeholder="Lokasi pemasangan kamera" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Resolusi</label>
-                            <select class="form-select" wire:model="newCameraResolution" required>
+                            <select class="form-select" wire:model.live="newCameraResolution" required>
                                 <option value="">Pilih Resolusi</option>
                                 <option>720p</option>
                                 <option>1080p</option>
@@ -88,7 +88,7 @@
                         </div>
                         <div class="form-check form-switch mb-3">
                             <input class="form-check-input" type="checkbox" id="statusKamera"
-                                wire:model="newCameraStatus">
+                                wire:model.live="newCameraStatus">
                             <label class="form-check-label">Aktifkan Kamera</label>
                         </div>
                         <div class="modal-footer">
@@ -110,25 +110,25 @@
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
-                    <form wire:submit.prevent="updateCamera">
+                    <form wire:submit="updateCamera">
                         <div class="mb-3">
                             <label class="form-label">Nama Kamera</label>
-                            <input type="text" class="form-control" wire:model="editCameraName"
+                            <input type="text" class="form-control" wire:model.live="editCameraName"
                                 placeholder="Masukkan nama kamera" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">URL Kamera</label>
-                            <input type="url" class="form-control" wire:model="editCameraUrl"
+                            <input type="url" class="form-control" wire:model.live="editCameraUrl"
                                 placeholder="Masukkan URL kamera" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Lokasi</label>
-                            <input type="text" class="form-control" wire:model="editCameraLocation"
+                            <input type="text" class="form-control" wire:model.live="editCameraLocation"
                                 placeholder="Lokasi pemasangan kamera" required>
                         </div>
                         <div class="mb-3">
                             <label class="form-label">Resolusi</label>
-                            <select class="form-select" wire:model="editCameraResolution" required>
+                            <select class="form-select" wire:model.live="editCameraResolution" required>
                                 <option value="720p">720p</option>
                                 <option value="1080p">1080p</option>
                                 <option value="4K">4K</option>
@@ -136,7 +136,7 @@
                         </div>
                         <div class="form-check form-switch mb-3">
                             <input class="form-check-input" type="checkbox" id="editStatusKamera"
-                                wire:model="editCameraStatus">
+                                wire:model.live="editCameraStatus">
                             <label class="form-check-label">Aktifkan Kamera</label>
                         </div>
                         <div class="modal-footer">
