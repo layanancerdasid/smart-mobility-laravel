@@ -24,9 +24,6 @@ class SurveyFilters extends Component
 
     public function updated($property, $value)
     {
-        if ($property === 'periode' || $property === 'interval') {
-            $this->dispatch('refreshSurveyTable', $this->periode, $this->interval); // Paksa SurveyTable untuk refresh
-        }
+        $this->dispatch('refreshSurveyTable', $this->interval); // Paksa SurveyTable untuk refresh
     }
-    
 }
