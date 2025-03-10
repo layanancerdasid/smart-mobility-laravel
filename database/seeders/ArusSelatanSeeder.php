@@ -28,8 +28,30 @@ class ArusSelatanSeeder extends Seeder
             ];
         })->toArray();
 
+        // collect($data)->chunk(100)->each(function ($chunk) {
+        //     DB::table('arus_lalu_lintas_selatan')->updateOrInsert($chunk->toArray());
+        // });
+
         collect($data)->chunk(100)->each(function ($chunk) {
-            DB::table('arus_lalu_lintas_selatan')->updateOrInsert($chunk->toArray());
-        });
+            foreach ($chunk as $item) {
+                DB::table('arus_lalu_lintas_selatan')->updateOrInsert(
+                    [
+                        'ID_Simpang' => $item['ID_Simpang'],
+                        'Arah' => $item['Arah'],
+                        'Waktu' => $item['Waktu']
+                    ], // Kondisi unik
+        
+                    [
+                        'Tipe_Pendekat' => $item['Tipe_Pendekat'],
+                        'MC' => $item['MC'],
+                        'LV' => $item['LV'],
+                        'HV' => $item['HV'],
+                        'UM' => $item['UM'],
+                        'created_at' => now(),
+                        'updated_at' => now()
+                    ] // Data yang diperbarui atau ditambahkan
+                );
+            }
+        });        
     }
 }
