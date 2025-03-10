@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Livewire\Pages\Dashboard;
+// use App\Livewire\Pages\Dashboard; => Legacy Dashboard
 use App\Livewire\Cameras;
 use App\Livewire\Trafics;
 use App\Livewire\Congestions;
@@ -13,6 +13,7 @@ use App\Livewire\Simulations;
 use App\Livewire\Maps;
 use App\Models\Intersection;
 use App\Livewire\SurveyPage;
+use App\Livewire\Dashboard;
 use App\Http\Controllers\IntersectionController;
 
 // Public routes
@@ -30,7 +31,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/logout', [Login::class, 'destroy'])->name('logout');
     Route::get('/maps', Maps::class)->name('maps');
 });
-Route::get('/dashboard', Dashboard::class)->name('dashboard');
+// Route::get('/dashboard', Dashboard::class)->name('dashboard-legacy');
 Route::get('/intersections', Intersections::class)->name('intersections');
 Route::get('/cameras', Cameras::class)->name('cameras');
 Route::get('/traffic-flow', Trafics::class)->name('traffic-flow');
@@ -46,3 +47,4 @@ Route::get('/simulations/intersections-check', [IntersectionController::class, '
 
 
 Route::get('/survey', SurveyPage::class)->name('survey');
+Route::get('/dashboard', Dashboard::class)->name('dashboard');
