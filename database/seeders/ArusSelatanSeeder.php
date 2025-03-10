@@ -29,7 +29,7 @@ class ArusSelatanSeeder extends Seeder
         })->toArray();
 
         collect($data)->chunk(100)->each(function ($chunk) {
-            DB::table('arus_lalu_lintas_selatan')->insert($chunk->toArray());
+            DB::table('arus_lalu_lintas_selatan')->updateOrInsert($chunk->toArray());
         });
     }
 }

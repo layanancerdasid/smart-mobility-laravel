@@ -30,7 +30,7 @@ public function run(): void
 
         // Insert in chunks to handle large datasets
         collect($data)->chunk(100)->each(function ($chunk) {
-            DB::table('arus_lalu_lintas_timur')->insert($chunk->toArray());
+            DB::table('arus_lalu_lintas_timur')->updateOrInsert($chunk->toArray());
         });
     }
 }

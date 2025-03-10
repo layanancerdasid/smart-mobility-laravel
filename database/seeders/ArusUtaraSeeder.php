@@ -29,7 +29,7 @@ class ArusUtaraSeeder extends Seeder
         })->toArray();
 
         collect($data)->chunk(100)->each(function ($chunk) {
-            DB::table('arus_lalu_lintas_utara')->insert($chunk->toArray());
+            DB::table('arus_lalu_lintas_utara')->updateOrInsert($chunk->toArray());
         });
     }
 }
