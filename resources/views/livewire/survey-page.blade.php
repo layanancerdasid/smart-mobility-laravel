@@ -62,7 +62,6 @@
 
     <livewire:download-modal />
 
-    {{-- <livewire:survey-table wire:model.live="periode" wire:model.live="interval" wire:key="'survey-table-'.$periode.'-'.$interval" /> --}}
     <livewire:survey-table wire:model.live="periode" wire:model.live="interval" />
     
     <div class="container mt-4">

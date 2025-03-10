@@ -3,9 +3,9 @@
         <div class="col-md-12">
             <h6 class="fw-bold">Pilih Surveyor</h6>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary flex-fill">VIANA</button>
-                <button class="btn btn-outline-primary flex-fill">manual</button>
-                <button class="btn btn-outline-primary flex-fill">semua</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('surveyor', 'VIANA')">VIANA</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('surveyor', 'manual')">manual</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('surveyor', 'semua')">semua</button>
             </div>
         </div>
 
@@ -23,30 +23,30 @@
         <div class="col-md-12">
             <h6 class="fw-bold">Pilih Pendekat Simpang</h6>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary flex-fill">Utara</button>
-                <button class="btn btn-outline-primary flex-fill">Selatan</button>
-                <button class="btn btn-outline-primary flex-fill">Timur</button>
-                <button class="btn btn-outline-primary flex-fill">Barat</button>
-                <button class="btn btn-outline-primary flex-fill">Semua</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('pendekat', 'Utara')">Utara</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('pendekat', 'Selatan')">Selatan</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('pendekat', 'Timur')">Timur</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('pendekat', 'Barat')">Barat</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('pendekat', 'Semua')">Semua</button>
             </div>
         </div>
 
         <div class="col-md-12">
             <h6 class="fw-bold">Pilih Arah Pergerakan</h6>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary flex-fill">Belok Kiri</button>
-                <button class="btn btn-outline-primary flex-fill">Lurus</button>
-                <button class="btn btn-outline-primary flex-fill">Belok Kanan</button>
-                <button class="btn btn-outline-primary flex-fill">Semua</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('arah', 'Belok Kiri')">Belok Kiri</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('arah', 'Lurus')">Lurus</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('arah', 'Belok Kanan')">Belok Kanan</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('arah', 'Semua')">Semua</button>
             </div>
         </div>
 
         <div class="col-md-12">
             <h6 class="fw-bold">Pilih Jenis Klasifikasi</h6>
             <div class="d-flex gap-2">
-                <button class="btn btn-outline-primary flex-fill">PKJI 2023 Luar Kota</button>
-                <button class="btn btn-outline-primary flex-fill">PKJI 2023 Dalam Kota</button>
-                <button class="btn btn-outline-primary flex-fill">Tipikal</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('klasifikasi', 'PKJI 2023 Luar Kota')">PKJI 2023 Luar Kota</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('klasifikasi', 'PKJI 2023 Dalam Kota')">PKJI 2023 Dalam Kota</button>
+                <button class="btn btn-outline-primary flex-fill" wire:click="$set('klasifikasi', 'Tipikal')">Tipikal</button>
             </div>
         </div>
     </div>

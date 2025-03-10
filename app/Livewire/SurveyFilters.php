@@ -10,7 +10,6 @@ class SurveyFilters extends Component
     public $pendekat = "";
     public $arah = "";
     public $klasifikasi = "";
-    public $periode = 'Pagi'; // Default periode
 
     public function downloadData()
     {
@@ -25,8 +24,6 @@ class SurveyFilters extends Component
 
     public function updated($property, $value)
     {
-        \Log::info("SurveyFilters Updated: {$property} -> {$value}");
-    
         if ($property === 'periode' || $property === 'interval') {
             $this->dispatch('refreshSurveyTable', $this->periode, $this->interval); // Paksa SurveyTable untuk refresh
         }

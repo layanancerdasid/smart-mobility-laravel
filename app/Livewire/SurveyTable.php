@@ -5,7 +5,6 @@ use Livewire\Component;
 
 class SurveyTable extends Component
 {
-    public $periode = 'Pagi';
     public $interval = '15 menit';
     public $data = [];
 
@@ -16,58 +15,8 @@ class SurveyTable extends Component
         $this->generateData();
     }
 
-    // public function generateData()
-    // {
-    //     \Log::info("Generate data dipanggil dengan Periode: {$this->periode} dan Interval: {$this->interval}");
-    
-    //     $this->data = [];
-    
-    //     $periodeWaktu = [
-    //         'Pagi' => ['start' => '06:00', 'end' => '12:00'],
-    //         'Siang' => ['start' => '12:00', 'end' => '18:00'],
-    //         'Sore' => ['start' => '18:00', 'end' => '00:00'],
-    //         'Malam' => ['start' => '00:00', 'end' => '06:00'],
-    //     ];
-    
-    //     if (!isset($periodeWaktu[$this->periode])) {
-    //         $this->periode = 'Pagi';
-    //     }
-    
-    //     $start = $periodeWaktu[$this->periode]['start'];
-    //     $end = $periodeWaktu[$this->periode]['end'];
-    
-    //     $intervalMinutes = match ($this->interval) {
-    //         '5 menit' => 5,
-    //         '10 menit' => 10,
-    //         '15 menit' => 15,
-    //         'Jam' => 60,
-    //         'Semua' => 60,
-    //         default => 15,
-    //     };
-    
-    //     $current = strtotime($start);
-    //     $endTime = strtotime($end);
-    
-    //     while ($current < $endTime) {
-    //         $next = strtotime("+{$intervalMinutes} minutes", $current);
-    //         $this->data[] = [
-    //             'periode' => $this->periode,
-    //             'waktu' => date('H:i', $current) . ' - ' . date('H:i', $next),
-    //             'sm' => rand(0, 10),
-    //             'ks' => rand(0, 10),
-    //             'kb' => rand(0, 10),
-    //             'ktb' => rand(0, 10),
-    //         ];
-    //         $current = $next;
-    //     }
-    
-    //     \Log::info("Data yang dihasilkan:", $this->data);
-    // }
-
     public function generateData()
     {
-        \Log::info("Generate data dipanggil dengan Interval: {$this->interval}");
-    
         // Ambil semua data berdasarkan interval
         $this->data = [];
     
@@ -106,13 +55,10 @@ class SurveyTable extends Component
     
             $currentTime = $endTime;
         }
-    
-        \Log::info("Data yang dihasilkan:", $this->data);
     }
 
     public function render()
     {
-        \Log::info("SurveyTable Render: Periode -> {$this->periode}, Interval -> {$this->interval}");
         return view('livewire.survey-table', [
             'data' => $this->generateData(),
         ]);
@@ -120,33 +66,24 @@ class SurveyTable extends Component
 
     public function refreshTable()
     {
-        \Log::info("SurveyTable refreshTable() dipanggil");
         $this->generateData();
     }
 
-    public function mount($periode = 'Pagi', $interval = '15 menit')
+    public function mount($interval = '15 menit')
     {
-        $this->periode = $periode;
         $this->interval = $interval;
-        \Log::info("SurveyTable Mounted: Periode -> {$this->periode}, Interval -> {$this->interval}");
         $this->generateData();
     }
     
     public function updated($property, $value)
     {
-        \Log::info("SurveyTable Updated: {$property} -> {$value}");
-    
         if ($property === 'periode' || $property === 'interval') {
-            \Log::info("Sebelum generateData: Periode -> {$this->periode}, Interval -> {$this->interval}");
             $this->generateData();
         }
     }
     
-    public function updateData($periode, $interval)
+    public function updateData($interval)
     {
-        \Log::info("SurveyTable menerima event: Periode -> {$periode}, Interval -> {$interval}");
-    
-        $this->periode = $periode;
         $this->interval = $interval;
         $this->generateData();
     }
