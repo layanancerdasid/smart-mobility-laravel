@@ -234,14 +234,14 @@
                         <div class="alert alert-danger">{{ session('error') }}</div>
                     @endif
 
-                    <form wire:submit="login">
+                    <form wire:submit.prevent="login">
                         <div class="mb-3">
                             <label for="email" class="form-label">Email</label>
-                            <input type="email" id="email" class="form-control" wire:model.live="email" required>
+                            <input type="email" id="email" class="form-control" wire:model="email" required>
                         </div>
                         <div class="mb-3">
                             <label for="password" class="form-label">Password</label>
-                            <input type="password" id="password" class="form-control" wire:model.live="password" required>
+                            <input type="password" id="password" class="form-control" wire:model="password" required>
                         </div>
                         <button type="submit" class="btn btn-danger w-100">Login</button>
                         <button type="button" class="btn btn-primary w-100 mt-2"
