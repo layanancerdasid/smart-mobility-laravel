@@ -191,8 +191,8 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     window.startSimulation = function () {
-        alert("Simulation Started!");
-    };
+        window.location.href = "{{ route('simulator') }}";
+}   ;
 
     updatePageUI();
 });

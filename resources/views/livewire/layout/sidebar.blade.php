@@ -92,6 +92,13 @@
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Travel Time</span>
             </a> --}}
 
+            <a href="{{ route('tutorial') }}"
+                class="nav-link d-flex align-items-center {{ request()->routeIs('tutorial') ? 'active' : '' }}">
+                <div wire:ignore>
+                    <i data-lucide="book-open" class="text-white"></i>
+                </div>
+                <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Tutorial</span>
+            </a>
             <a href="{{ route('settings') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('settings') ? 'active' : '' }}">
                 <div wire:ignore>
