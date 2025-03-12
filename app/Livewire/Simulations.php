@@ -30,7 +30,7 @@ class Simulations extends Component
             'subtitle' => 'Smart Mobility',
             'description' => 'Simulasi untuk mengelola persimpangan dengan aman.',
             'image' => 'https://unsplash.com/photos/aerial-photography-of-buildings-and-vehicles-OkOE0G_GC8Q',
-            'route' => 'intersections'
+            'route' => 'simulator'
         ],
         [
             'id' => 4,

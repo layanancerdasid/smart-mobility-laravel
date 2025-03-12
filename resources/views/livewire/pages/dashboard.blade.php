@@ -91,27 +91,32 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const ctx = document.getElementById('congestionChart').getContext('2d');
-    const congestionChart = new Chart(ctx, {
-        type: 'line', // atau 'bar', 'pie', dll.
-        data: {
-            labels: ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15',
-                '16', '17', '18', '19', '20', '21', '22', '23', '24'
-            ],
-            datasets: [{
-                label: 'Kemacetan',
-                data: [ /* data kemacetan di sini */ ],
-                borderColor: 'rgba(255, 99, 132, 1)',
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderWidth: 1
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
+    document.addEventListener("DOMContentLoaded", function () {
+        const ctx = document.getElementById('congestionChart').getContext('2d');
+
+        // Simulasi data kemacetan yang realistis (persentase per jam)
+        const congestionData = Array.from({ length: 24 }, () => Math.floor(Math.random() * (80 - 10 + 1) + 10));
+
+        const congestionChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: 24 }, (_, i) => `${i + 1}:00`),
+                datasets: [{
+                    label: 'Kemacetan (%)',
+                    data: congestionData,
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        max: 100
+                    }
                 }
             }
-        }
+        });
     });
 </script>

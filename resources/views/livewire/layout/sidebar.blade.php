@@ -29,27 +29,27 @@
                 </div>
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Dashboard</span>
             </a>
-            {{-- <a href="{{ route('simulations') }}"
+            <a href="{{ route('simulations') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('simulations') ? 'active' : '' }}">
                 <div wire:ignore>
                     <i data-lucide="tv-minimal-play" class="text-white"></i>
                 </div>
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Simulation</span>
-            </a> --}}
-            {{-- <a href="{{ route('maps') }}"
+            </a>
+            <a href="{{ route('maps') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('maps') ? 'active' : '' }}">
                 <div wire:ignore>
                     <i data-lucide="map" class="text-white"></i>
                 </div>
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Maps</span>
-            </a> --}}
-            <a href="{{ route('survey') }}"
+            </a>
+            {{-- <a href="{{ route('survey') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('maps') ? 'active' : '' }}">
                 <div wire:ignore>
                     <i data-lucide="binoculars" class="text-white"></i>
                 </div>
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Survey</span>
-            </a>
+            </a> --}}
             {{-- 
             <a href="{{ route('cameras') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('cameras') ? 'active' : '' }}">

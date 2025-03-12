@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-// use App\Livewire\Pages\Dashboard; => Legacy Dashboard
+use App\Livewire\Pages\Dashboard;
 use App\Livewire\Cameras;
 use App\Livewire\Trafics;
 use App\Livewire\Congestions;
@@ -13,7 +13,7 @@ use App\Livewire\Simulations;
 use App\Livewire\Maps;
 use App\Models\Intersection;
 use App\Livewire\SurveyPage;
-use App\Livewire\Dashboard;
+// use App\Livewire\Dashboard;
 use App\Http\Controllers\IntersectionController;
 
 // Public routes

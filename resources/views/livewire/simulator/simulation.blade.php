@@ -442,7 +442,7 @@
             <div class="simulator-box shadow-lg">
                 <!-- Loading Screen untuk Page 4 -->
                 <div id="evaluation-loading-screen" style="text-align: center; padding: 20px;">
-                    <p>Loading evaluation data... please wait (45 seconds)</p>
+                    <p>Loading evaluation data... please wait</p>
                     <div class="spinner-border" role="status">
                         <span class="visually-hidden">Loading...</span>
                     </div>

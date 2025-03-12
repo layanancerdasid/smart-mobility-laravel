@@ -1,7 +1,7 @@
 <nav class="navbar navbar-expand-lg tutorial-navbar">
     <div class="container-fluid">
         <!-- Left side - Logo -->
-        <a class="navbar-brand" href="#">
+        <a class="navbar-brand" href="{{ route('simulations') }}">
             <img src="{{ asset('images/IC_SMART MOBILITY.png') }}" alt="Smart Mobility Logo" class="tutorial-logo">
         </a>
 
