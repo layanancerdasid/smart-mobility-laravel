@@ -30,11 +30,3 @@
         }
     </style>
 </div>
-
-<script>
-    document.addEventListener('livewire:load', function () {
-        Livewire.on('updateFilter', (filter) => {
-            Livewire.emit('updateFilter', filter);
-        });
-    });
-</script>

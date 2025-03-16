@@ -10,7 +10,7 @@
             wire:click="setFilter('bulan')">
             Bulan ini
         </button>
-    x
+        
         <button class="btn btn-light fw-bold {{ $selectedFilter === 'tahun' ? 'active' : '' }}" 
             wire:click="setFilter('tahun')">
             Tahun Ini
@@ -95,7 +95,7 @@
             const socket = io("https://sxe-data.layanancerdas.id");
     
             socket.on("result_detection", (data) => {
-                console.log("📡 Data CCTV diterima:", data);
+                // console.log("📡 Data CCTV diterima:", data);
     
                 if (!data.message || !data.message.image_url || !data.message.count) {
                     console.warn("⚠️ Data tidak lengkap, diabaikan:", data);

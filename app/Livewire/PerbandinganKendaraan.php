@@ -2,10 +2,14 @@
 
 // namespace App\Livewire;
 
+// use Illuminate\Support\Facades\DB;
 // use Livewire\Component;
 
 // class PerbandinganKendaraan extends Component
 // {
+//     public $jenisKendaraan = [];
+//     public $selectedFilter = 'hari'; // Default filter
+
 //     public $dataArah = [
 //         [
 //             'arah' => 'Utara',
@@ -57,18 +61,64 @@
 //         ]
 //     ];
 
-//     public $jenisKendaraan = [
-//         ['name' => 'Motor', 'masuk' => -4, 'keluar' => 9],
-//         ['name' => 'Mobil', 'masuk' => -3, 'keluar' => 7],
-//         ['name' => 'Bus', 'masuk' => -2, 'keluar' => 5],
-//         ['name' => 'Truk', 'masuk' => -1, 'keluar' => 3],
-//     ];
+//     protected $listeners = ['updateFilter', 'requestChartUpdate' => 'sendChartData'];
+
+//     public function mount()
+//     {
+//         $this->fetchData();
+//     }
+
+//     public function updateFilter($filter)
+//     {
+//         $this->selectedFilter = $filter;
+//         $this->fetchData(); // Update data setelah filter berubah
+//     }
+
+//     public function sendChartData()
+//     {
+//         $this->dispatch('updateChart', jenisKendaraan: $this->jenisKendaraan);
+//     }
+
+//     public function fetchData()
+//     {
+//         $periode = $this->selectedFilter; // 'hari', 'bulan', atau 'tahun'
+    
+//         $data = DB::select("CALL get_kendaraan_statistik(?)", [$periode]);
+    
+//         // Konversi hasil query ke format yang sama seperti versi lama
+//         $this->jenisKendaraan = collect($data)->map(function ($item) {
+//             return [
+//                 'name' => $this->mapJenisKendaraan($item->jenis), // Ubah kode kendaraan jadi nama yang dipakai chart
+//                 'masuk' => -$item->total_masuk,  // Masuk dibuat negatif untuk grafik
+//                 'keluar' => $item->total_keluar,
+//             ];
+//         })->toArray();
+//     }    
 
 //     public function render()
 //     {
 //         return view('livewire.perbandingan-kendaraan');
 //     }
+
+//     private function mapJenisKendaraan($kode)
+//     {
+//         $mapping = [
+//             'SM' => 'Sepeda Motor',
+//             'MP' => 'Mobil Pribadi',
+//             'AUP' => 'Angkutan Umum Penumpang',
+//             'TR' => 'Truk Ringan',
+//             'BS' => 'Bus Sedang',
+//             'TS' => 'Bus Sedang',
+//             'BB' => 'Bus Besar',
+//             'TB' => 'Truk Berat',
+//             'Gandeng' => 'Gandeng',
+//             'KTB' => 'Kendaraan Tak Bermotor'
+//         ];
+
+//         return $mapping[$kode] ?? $kode;
+//     }
 // }
+
 
 namespace App\Livewire;
 
@@ -131,14 +181,14 @@ class PerbandinganKendaraan extends Component
         ]
     ];
 
-    protected $listeners = ['updateFilter' => 'setFilter'];
+    protected $listeners = ['updateFilter'];
 
     public function mount()
     {
         $this->fetchData();
     }
 
-    public function setFilter($filter)
+    public function updateFilter($filter)
     {
         $this->selectedFilter = $filter;
         $this->fetchData(); // Update data setelah filter berubah
@@ -146,48 +196,41 @@ class PerbandinganKendaraan extends Component
 
     public function fetchData()
     {
-        $waktuFilter = match ($this->selectedFilter) {
-            'hari' => "DATE(waktu) = CURDATE()",
-            'bulan' => "YEAR(waktu) = YEAR(CURDATE()) AND MONTH(waktu) = MONTH(CURDATE())",
-            'tahun' => "YEAR(waktu) = YEAR(CURDATE())",
-            default => "1 = 1", // Jika tidak ada filter yang cocok, ambil semua data
-        };
-
-        $data = DB::select("
-            WITH kendaraan_masuk AS (
-                SELECT 'barat' AS asal, COUNT(*) AS total_masuk FROM arus_lalu_lintas_barat_detailed WHERE $waktuFilter
-                UNION ALL
-                SELECT 'timur' AS asal, COUNT(*) AS total_masuk FROM arus_lalu_lintas_timur_detailed WHERE $waktuFilter
-                UNION ALL
-                SELECT 'utara' AS asal, COUNT(*) AS total_masuk FROM arus_lalu_lintas_utara_detailed WHERE $waktuFilter
-                UNION ALL
-                SELECT 'selatan' AS asal, COUNT(*) AS total_masuk FROM arus_lalu_lintas_selatan_detailed WHERE $waktuFilter
-            ),
-            kendaraan_keluar AS (
-                SELECT 'barat' AS asal, COUNT(*) AS total_keluar FROM arus_lalu_lintas_barat_detailed WHERE $waktuFilter AND arah IS NOT NULL AND arah != 'barat'
-                UNION ALL
-                SELECT 'timur' AS asal, COUNT(*) AS total_keluar FROM arus_lalu_lintas_timur_detailed WHERE $waktuFilter AND arah IS NOT NULL AND arah != 'timur'
-                UNION ALL
-                SELECT 'utara' AS asal, COUNT(*) AS total_keluar FROM arus_lalu_lintas_utara_detailed WHERE $waktuFilter AND arah IS NOT NULL AND arah != 'utara'
-                UNION ALL
-                SELECT 'selatan' AS asal, COUNT(*) AS total_keluar FROM arus_lalu_lintas_selatan_detailed WHERE $waktuFilter AND arah IS NOT NULL AND arah != 'selatan'
-            )
-            SELECT km.asal, km.total_masuk, COALESCE(kk.total_keluar, 0) AS total_keluar
-            FROM kendaraan_masuk km
-            LEFT JOIN kendaraan_keluar kk ON km.asal = kk.asal;
-        ");
+        $periode = $this->selectedFilter;
+        $data = DB::select("CALL get_kendaraan_statistik(?)", [$periode]);
 
         $this->jenisKendaraan = collect($data)->map(function ($item) {
             return [
-                'name' => ucfirst($item->asal),
-                'masuk' => -$item->total_masuk, // Masuk dibuat negatif untuk visualisasi Highcharts
+                'name' => $this->mapJenisKendaraan($item->jenis),
+                'masuk' => -$item->total_masuk,  // Masuk dibuat negatif untuk grafik
                 'keluar' => $item->total_keluar,
             ];
         })->toArray();
+
+        // 🔥 Gunakan dispatch() agar Alpine.js bisa menangkap update dari Livewire
+        $this->dispatch('updateChartData', detail: $this->jenisKendaraan);
     }
 
     public function render()
     {
         return view('livewire.perbandingan-kendaraan');
+    }
+
+    private function mapJenisKendaraan($kode)
+    {
+        $mapping = [
+            'SM' => 'Sepeda Motor',
+            'MP' => 'Mobil Pribadi',
+            'AUP' => 'Angkutan Umum Penumpang',
+            'TR' => 'Truk Ringan',
+            'BS' => 'Bus Sedang',
+            'TS' => 'Bus Sedang',
+            'BB' => 'Bus Besar',
+            'TB' => 'Truk Berat',
+            'Gandeng' => 'Gandeng',
+            'KTB' => 'Kendaraan Tak Bermotor'
+        ];
+
+        return $mapping[$kode] ?? $kode;
     }
 }
