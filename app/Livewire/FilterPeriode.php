@@ -11,6 +11,7 @@ class FilterPeriode extends Component
     public function setFilter($filter)
     {
         $this->selectedFilter = $filter;
+        $this->emit('updateFilter', $filter); // Emit event ke komponen lain
     }
 
     public function render()

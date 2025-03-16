@@ -135,6 +135,7 @@
 </head>
 
 <body>
+    @livewireScripts
     @if (Auth::check() && !request()->is('login'))
         <div class="wrapper d-flex">
             <livewire:layout.sidebar />
@@ -160,6 +161,7 @@
         // Reinitialize icons after Livewire updates
         document.addEventListener('livewire:initialized', () => {
             lucide.createIcons();
+            console.log('Livewire initialized');
         });
 
         document.addEventListener('livewire:navigated', () => {
@@ -191,11 +193,8 @@
         });
     </script>
     {{-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script> --}}
-
-
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    @livewireScripts
 </body>
 
 </html>

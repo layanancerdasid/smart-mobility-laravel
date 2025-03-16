@@ -6,17 +6,33 @@ use Livewire\Component;
 
 class CCTVStream extends Component
 {
-    public $imageUrl = ''; // URL gambar CCTV
-    public $vehicleCount = 0; // Jumlah kendaraan terdeteksi
-    public $detections = []; // Data kendaraan (arah, jenis, dll.)
+    public $imageUrl = '';
+    public $vehicleCount = 0;
+    public $detections = [];
+    public $selectedFilter = 'hari';
 
-    protected $listeners = ['updateCCTV' => 'updateStream'];
+    public function setFilter($filter)
+    {
+        $this->selectedFilter = $filter;
+    }
 
     public function updateStream($data)
     {
+        \Log::info("📡 Livewire menerima updateCCTV", $data);
+
+        if (!isset($data['image_url']) || !isset($data['count']) || !isset($data['detections'])) {
+            \Log::error("❌ Format data tidak sesuai", $data);
+            return;
+        }
+
         $this->imageUrl = $data['image_url'];
         $this->vehicleCount = $data['count'];
-        $this->detections = $data['detections'];
+
+        // ✅ Append data baru ke awal array, batasi hanya 100 entri terakhir
+        foreach ($data['detections'] as $detection) {
+            array_unshift($this->detections, $detection);
+        }
+        $this->detections = array_slice($this->detections, 0, 100);
     }
 
     public function render()
