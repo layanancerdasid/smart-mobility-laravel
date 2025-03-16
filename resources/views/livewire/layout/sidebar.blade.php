@@ -1,5 +1,5 @@
 <div class="sidebar" @class(['collapsed' => $collapsed])
-    style="background: #DB0000; border-radius: 0px 0px 0px 0px; overflow: hidden; width: {{ $collapsed ? '70px' : '250px' }}; transition: all 0.3s ease;">
+    style="background: #7585C2; border-radius: 0px 0px 0px 0px; overflow: hidden; width: {{ $collapsed ? '70px' : '250px' }}; transition: all 0.3s ease;">
     <div class="d-flex flex-column align-items-stretch">
         <!-- Toggle Button -->
         <button type="button" class="btn d-flex align-items-center p-3" wire:click="toggle"

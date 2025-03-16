@@ -625,9 +625,10 @@ document.addEventListener('DOMContentLoaded', function () {
         },
         tooltip: {
             formatter: function () {
-                let totalMasuk = dataArah.find(d => d.arah + ' (' + d.lokasi + ')' === this.x).totalMasuk;
-                let totalKeluar = dataArah.find(d => d.arah + ' (' + d.lokasi + ')' === this.x).totalKeluar;
+                let totalMasuk = dataArah.find(d => d.arah + ' (' + d.lokasi + ')' === this.x.totalMasuk);
+                let totalKeluar = dataArah.find(d => d.arah + ' (' + d.lokasi + ')' === this.x.totalKeluar);
                 let totalArah = totalMasuk + totalKeluar;
+                let persentaseArah = ((Math.abs(this.y) / totalArah) * 100).toFixed(1);
                 return `<span style="color:${this.color}">\u25CF</span> 
                         <b>${this.series.name}: ${Math.abs(this.y)}</b> 
                         (${persentaseArah}%)`;

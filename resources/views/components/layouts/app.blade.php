@@ -22,6 +22,7 @@
 
     <link rel="stylesheet" href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" />
     <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
+    <script src="https://cdn.socket.io/4.5.4/socket.io.min.js"></script>
     <style>
         body {
             background: #f5f5f5;
@@ -53,7 +54,7 @@
 
         /* Navbar styles */
         .navbar {
-            background: #DB0000;
+            background: #7585C2;
             padding: 0.75rem 1.5rem;
             width: 100%;
         }
@@ -110,7 +111,7 @@
         }
 
         ::-webkit-scrollbar-thumb:hover {
-            background: #DB0000;
+            background: #7585C2;
         }
 
         /* Add map-specific styles */
