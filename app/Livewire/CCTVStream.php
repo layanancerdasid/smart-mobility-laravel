@@ -4,7 +4,7 @@ namespace App\Livewire;
 
 use Livewire\Component;
 
-class CCTVStream extends Component
+class CctvStream extends Component
 {
     public $imageUrl = '';
     public $vehicleCount = 0;
@@ -18,10 +18,10 @@ class CCTVStream extends Component
 
     public function updateStream($data)
     {
-        \Log::info("📡 Livewire menerima updateCCTV", $data);
+        // \Log::info("📡 Livewire menerima updateCCTV", $data);
 
         if (!isset($data['image_url']) || !isset($data['count']) || !isset($data['detections'])) {
-            \Log::error("❌ Format data tidak sesuai", $data);
+            // \Log::error("❌ Format data tidak sesuai", $data);
             return;
         }
 
