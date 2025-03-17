@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class FilterPeriode extends Component
 {
-    public $selectedFilter = 'bulan';
+    public $selectedFilter = 'hari';
 
     public function setFilter($filter)
     {

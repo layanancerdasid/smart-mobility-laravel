@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" x-data="chartTraffic()" x-init="initChart()">
     <!-- Filter Data: Asal Kendaraan -->
     <div class="d-flex gap-2 mt-4 mb-4">
         <button 
@@ -56,7 +56,7 @@
         </div>    
 
         <!-- Script Highcharts -->
-        <script>
+        {{-- <script>
             document.addEventListener("DOMContentLoaded", function() {
                 console.log("Highcharts script loaded");
         
@@ -122,6 +122,127 @@
                         .catch(error => console.error("Error fetching data:", error));
                 });
             });
-        </script>        
+        </script>         --}}
+        <script>
+            function chartTraffic() {
+                return {
+                    chart: null,
+        
+                    initChart() {
+                        var seriesData = @json($jenisKendaraan2);
+                        var breakdownMasuk = @json($jenisKendaraanMasuk);
+                        var breakdownKeluar = @json($jenisKendaraanKeluar);
+        
+                        this.populateChart(seriesData);
+                        this.populateBreakdownMasuk(breakdownMasuk);
+                        console.log(breakdownMasuk, "TEST")
+                        this.populateBreakdownKeluar(breakdownKeluar);
+        
+                        document.addEventListener('updateChartData2', (event) => {
+                            let data = event.detail.detail;
+                            setTimeout(() => {
+                                this.updateChart(data);
+                            }, 1000);
+                        });
+
+                        document.addEventListener('updateChartBreakdownMasuk', (event) => {
+                            let data = event.detail.detail;
+                            setTimeout(() => {
+                                this.updateBreakdownMasuk(data);
+                            }, 1000);
+                        });
+
+                        document.addEventListener('updateChartBreakdownKeluar', (event) => {
+                            let data = event.detail.detail;
+                            setTimeout(() => {
+                                this.updateBreakdownKeluar(data);
+                            }, 1000);
+                        });
+                    },
+        
+                    populateChart(seriesData) {
+                        var categories = seriesData.map(item => item.name);
+                        var masukData = seriesData.map(item => parseInt(item.masuk));
+                        var keluarData = seriesData.map(item => parseInt(item.keluar));
+
+        
+                        window.trafficChart = Highcharts.chart('trafficChart', {
+                            chart: { type: 'line', },
+                            title: { text: 'Lalu Lintas Masuk vs Keluar' },
+                            xAxis: { categories: categories },
+                            yAxis: { title: { text: 'Jumlah Kendaraan' } },
+                            legend: { enabled: true },
+                            plotOptions: {
+                                line: {
+                                    dataLabels: { enabled: true }
+                                }
+                            },
+                            series: [
+                                { name: "Masuk", data: masukData, color: "#4CAF50" },
+                                { name: "Keluar", data: keluarData, color: "#D9534F" }
+                            ]
+                        });
+                    },
+                    populateBreakdownMasuk(seriesData) {
+                        let categories = seriesData.map(item => item.name);
+                        let series = Object.keys(seriesData[0]).filter(k => k !== 'name')
+                            .map(k => ({ name: k, data: seriesData.map(item => parseInt(item[k])) }));
+
+                        window.designVolumeChart1 = Highcharts.chart('designVolumeChart1', {
+                            chart: { type: 'line' },
+                            title: { text: 'Breakdown Kendaraan Masuk' },
+                            xAxis: { categories: categories },
+                            series: series
+                        });
+                    },
+                    populateBreakdownKeluar(seriesData) {
+                        let categories = seriesData.map(item => item.name);
+                        let series = Object.keys(seriesData[0]).filter(k => k !== 'name')
+                            .map(k => ({ name: k, data: seriesData.map(item => parseInt(item[k])) }));
+
+                        window.designVolumeChart2 = Highcharts.chart('designVolumeChart2', {
+                            chart: { type: 'line' },
+                            title: { text: 'Breakdown Kendaraan Keluar' },
+                            xAxis: { categories: categories },
+                            series: series
+                        });
+                    },
+                    updateChart(seriesData) {
+                        let categories = seriesData.map(item => item.name);
+                        let masukData = seriesData.map(item => parseInt(item.masuk));
+                        let keluarData = seriesData.map(item => parseInt(item.keluar));
+        
+                        if (window.trafficChart) {
+                            window.trafficChart.destroy();
+                        }
+        
+                        this.populateChart(seriesData);
+                    },
+                    updateBreakdownMasuk(seriesData) {
+                        let categories = seriesData.map(item => item.name);
+                        let series = Object.keys(seriesData[0]).filter(k => k !== 'name')
+                            .map(k => ({ name: k, data: seriesData.map(item => parseInt(item[k])) }));
+
+                        if (window.designVolumeChart1) {
+                            window.designVolumeChart1.destroy();
+                        }
+
+                        this.populateBreakdownMasuk(seriesData);
+                    },
+
+                    updateBreakdownKeluar(seriesData) {
+                        let categories = seriesData.map(item => item.name);
+                        let series = Object.keys(seriesData[0]).filter(k => k !== 'name')
+                            .map(k => ({ name: k, data: seriesData.map(item => parseInt(item[k])) }));
+
+                        if (window.designVolumeChart2) {
+                            window.designVolumeChart2.destroy();
+                        }
+
+                        this.populateBreakdownKeluar(seriesData);
+                    }
+                };
+            }
+        </script>
     </div>
 </div>

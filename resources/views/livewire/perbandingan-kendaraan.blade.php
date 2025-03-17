@@ -277,7 +277,6 @@
                 });
 
                 document.addEventListener('updateChartDistribusi', (event) => {
-                    console.log(event.detail.detail, "test")
                     let data = event.detail.detail;
                     // this.updateChartDistribusi(data);
                     setTimeout(() => {
@@ -353,7 +352,6 @@
                 });
 
                 var formattedSeries = [...seriesMasuk, ...seriesKeluar];
-                console.log(formattedSeries)
 
                 window.chartDistribusi = Highcharts.chart('chartDistribusi', {
                     chart: { type: 'bar', height: 300, backgroundColor: 'transparent' },
