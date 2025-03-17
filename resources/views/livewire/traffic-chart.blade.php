@@ -168,8 +168,8 @@
         
                         window.trafficChart = Highcharts.chart('trafficChart', {
                             chart: { type: 'line', },
-                            title: { text: 'Lalu Lintas Masuk vs Keluar' },
-                            xAxis: { categories: categories },
+                            title: { text: '' },
+                            xAxis: { title: { text: 'Waktu' }, categories: categories },
                             yAxis: { title: { text: 'Jumlah Kendaraan' } },
                             legend: { enabled: true },
                             plotOptions: {
@@ -190,8 +190,9 @@
 
                         window.designVolumeChart1 = Highcharts.chart('designVolumeChart1', {
                             chart: { type: 'line' },
-                            title: { text: 'Breakdown Kendaraan Masuk' },
-                            xAxis: { categories: categories },
+                            title: { text: '' },
+                            xAxis: { title: { text: 'Waktu' }, categories: categories },
+                            yAxis: { title: { text: 'Jumlah Kendaraan' } },
                             series: series
                         });
                     },
@@ -202,8 +203,9 @@
 
                         window.designVolumeChart2 = Highcharts.chart('designVolumeChart2', {
                             chart: { type: 'line' },
-                            title: { text: 'Breakdown Kendaraan Keluar' },
-                            xAxis: { categories: categories },
+                            title: { text: '' },
+                            xAxis: { title: { text: 'Waktu' }, categories: categories },
+                            yAxis: { title: { text: 'Jumlah Kendaraan' } },
                             series: series
                         });
                     },
