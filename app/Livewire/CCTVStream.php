@@ -44,15 +44,16 @@ class CctvStream extends Component
             return;
         }
 
+        // \Log::info("🛠️ updateStream dipanggil", $data);
         switch ($data['room_id']) {
+            // case 'result_detection':
+            //     $this->imageUrl1 = $data['image_url'];
+            //     foreach ($data['detections'] as $detection) {
+            //         array_unshift($this->detections1, $detection);
+            //     }
+            //     $this->detections1 = array_slice($this->detections1, 0, 100);
+            //     break;
             case 'result_detection':
-                $this->imageUrl1 = $data['image_url'];
-                foreach ($data['detections'] as $detection) {
-                    array_unshift($this->detections1, $detection);
-                }
-                $this->detections1 = array_slice($this->detections1, 0, 100);
-                break;
-            case 'result_detection_2':
                 $this->imageUrl2 = $data['image_url'];
                 foreach ($data['detections'] as $detection) {
                     array_unshift($this->detections2, $detection);
@@ -86,10 +87,10 @@ class CctvStream extends Component
         // $this->vehicleCount = $data['count'];
 
         // ✅ Append data baru ke awal array, batasi hanya 100 entri terakhir
-        foreach ($data['detections'] as $detection) {
-            array_unshift($this->detections, $detection);
-        }
-        $this->detections = array_slice($this->detections, 0, 100);
+        // foreach ($data['detections'] as $detection) {
+        //     array_unshift($this->detections, $detection);
+        // }
+        // $this->detections = array_slice($this->detections, 0, 100);
     }
 
     public function render()

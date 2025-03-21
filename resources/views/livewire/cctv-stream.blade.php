@@ -30,7 +30,7 @@
     </div>    
 
     <!-- CCTV Streams -->
-    <div class="row justify-content-center mb-4" x-data @update-cctv-2.window="$wire.updateStream($event.detail)">
+    <div class="row justify-content-center mb-4" x-data @update-cctv-1.window="$wire.updateStream($event.detail)">
         <div class="col-md-6">
             <div class="cctv-container shadow rounded overflow-hidden">
                 <div class="m-3">
@@ -75,7 +75,7 @@
             </div>
         </div>
         <!-- Volume Jam Perancangan -->
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-6">
                 <div class="chart-container shadow rounded p-3 bg-light">
                     <div id="designVolumeChart1" style="height: 300px;"></div>
@@ -86,9 +86,9 @@
                     <div id="designVolumeChart2" style="height: 300px;"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
-    <div class="row justify-content-center mb-4" x-data @update-cctv-3.window="$wire.updateStream($event.detail)">
+    <div class="row justify-content-center mb-4" x-data @update-cctv-2.window="$wire.updateStream($event.detail)">
         <div class="col-md-6">
             <div class="cctv-container shadow rounded overflow-hidden">
                 <div class="m-3">
@@ -133,7 +133,7 @@
             </div>
         </div>
         <!-- Volume Jam Perancangan -->
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-6">
                 <div class="chart-container shadow rounded p-3 bg-light">
                     <div id="designVolumeChart1" style="height: 300px;"></div>
@@ -144,9 +144,9 @@
                     <div id="designVolumeChart2" style="height: 300px;"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
-    <div class="row justify-content-center mb-4" x-data @update-cctv-4.window="$wire.updateStream($event.detail)">
+    <div class="row justify-content-center mb-4" x-data @update-cctv-3.window="$wire.updateStream($event.detail)">
         <div class="col-md-6">
             <div class="cctv-container shadow rounded overflow-hidden">
                 <div class="m-3">
@@ -191,7 +191,7 @@
             </div>
         </div>
         <!-- Volume Jam Perancangan -->
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-6">
                 <div class="chart-container shadow rounded p-3 bg-light">
                     <div id="designVolumeChart1" style="height: 300px;"></div>
@@ -202,9 +202,9 @@
                     <div id="designVolumeChart2" style="height: 300px;"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
-    <div class="row justify-content-center mb-4" x-data @update-cctv-5.window="$wire.updateStream($event.detail)">
+    <div class="row justify-content-center mb-4" x-data @update-cctv-4.window="$wire.updateStream($event.detail)">
         <div class="col-md-6">
             <div class="cctv-container shadow rounded overflow-hidden">
                 <div class="m-3">
@@ -249,7 +249,7 @@
             </div>
         </div>
         <!-- Volume Jam Perancangan -->
-        <div class="row">
+        {{-- <div class="row">
             <div class="col-md-6">
                 <div class="chart-container shadow rounded p-3 bg-light">
                     <div id="designVolumeChart1" style="height: 300px;"></div>
@@ -260,7 +260,7 @@
                     <div id="designVolumeChart2" style="height: 300px;"></div>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
     {{-- <!-- Volume Jam Perancangan -->
@@ -277,7 +277,7 @@
         </div>
     </div> --}}
 
-    <script>
+    {{-- <script>
         document.addEventListener("DOMContentLoaded", function() {
             const socket = io("https://sxe-data.layanancerdas.id");
     
@@ -300,9 +300,33 @@
                 "result_detection_5"
             ];
 
+            // window.dispatchEvent(new CustomEvent('update-cctv-3', {
+            //     detail: {
+            //         image_url: 'https://via.placeholder.com/800x450?text=TEST',
+            //         count: 5,
+            //         room_id: 'result_detection_3',
+            //         detections: [
+            //             { class: 'Car', dari_arah: 'south', ke_arah: 'north' }
+            //         ]
+            //     }
+            // }));
             rooms.forEach((room, index) => {
                 socket.on(room, function (data) {
-                    window.dispatchEvent(new CustomEvent(`update-cctv-${index + 1}`, { detail: data }));
+                    console.log(`📡 Event ${room} diterima`, data);
+                    const eventName = `update-cctv-${index + 1}`;
+                    console.log(`🔔 Dispatch ke event: ${eventName}`);
+                    // Inject room_id ke dalam data.message
+                    const detailWithRoom = {
+                        ...data.message,
+                        room_id: room
+                    };
+                    window.dispatchEvent(new CustomEvent(`update-cctv-${index + 1}`, {
+                        detail: detailWithRoom
+                    }));
+                    // window.dispatchEvent(new CustomEvent(`${eventName}`, { detail: data.message }));
+                    setTimeout(() => {
+                        window.dispatchEvent(new CustomEvent(`${eventName}`, { detail: data.message }));
+                    }, 1000);
                 });
             });
     
@@ -332,6 +356,59 @@
     
             // Jalankan simulasi setiap 5 detik
             // setInterval(generateRandomData, 5000);
+        });
+    </script>     --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const socket = io("https://sxe-data.layanancerdas.id");
+
+            const rooms = [
+                "result_detection",     // update-cctv-1
+                "result_detection_3",   // update-cctv-3
+                "result_detection_4",   // update-cctv-4
+                "result_detection_5"    // update-cctv-5
+            ];
+
+            const lastUpdate = {};
+            const MIN_INTERVAL_MS = 1000;
+
+            rooms.forEach((room, index) => {
+                socket.on(room, function (data) {
+                    const now = Date.now();
+                    const message = data.message;
+
+                    if (!message || !message.image_url) {
+                        console.warn(`⚠️ Data dari ${room} tidak valid:`, data);
+                        return;
+                    }
+
+                    if (lastUpdate[room] && now - lastUpdate[room] < MIN_INTERVAL_MS) {
+                        return; // skip update terlalu cepat
+                    }
+
+                    const img = new Image();
+
+                    img.onload = () => {
+                        lastUpdate[room] = Date.now();
+
+                        const detailWithRoom = {
+                            ...message,
+                            room_id: room
+                        };
+
+                        const eventName = `update-cctv-${index + 1}`;
+                        console.log(`✅ [${room}] Image loaded, dispatch to ${eventName}`);
+                        window.dispatchEvent(new CustomEvent(eventName, { detail: detailWithRoom }));
+                    };
+
+                    img.onerror = () => {
+                        console.warn(`❌ [${room}] Gagal load image: ${message.image_url}`);
+                        // 🚫 Tidak melakukan apa-apa = image Livewire tidak berubah
+                    };
+
+                    img.src = message.image_url;
+                });
+            });
         });
     </script>    
 </div>
