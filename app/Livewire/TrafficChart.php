@@ -36,7 +36,7 @@ class TrafficChart extends Component
         $this->fetchData();
         $this->fetchBreakdownMasuk();
         $this->fetchBreakdownKeluar();
-        $this->dispatch('updateCharts', $origin);
+        // $this->dispatch('updateCharts', $origin);
     }
 
     public function fetchData()

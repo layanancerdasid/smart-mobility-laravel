@@ -47,10 +47,15 @@ class PerbandinganKendaraan extends Component
     public function fetchDistribusiData()
     {
         $periode = $this->selectedFilter;
-        $data = collect(DB::select("CALL get_kendaraan_breakdown(?, 2)", [$periode]));
     
-        // Struktur data berdasarkan arah
-        $dataArah = [];
+        // Mapping ID ke arah dan lokasi
+        $idArahMapping = [
+            2 => 'Timur',
+            3 => 'Barat',
+            4 => 'Selatan',
+            5 => 'Utara',
+        ];
+    
         $lokasiMapping = [
             'Utara' => 'Tempel',
             'Timur' => 'Prambanan',
@@ -58,7 +63,6 @@ class PerbandinganKendaraan extends Component
             'Barat' => 'Glagah'
         ];
     
-        // Warna untuk jenis kendaraan
         $colorMapping = [
             'SM' => '#F39C12',
             'MP' => '#2ECC71',
@@ -72,62 +76,40 @@ class PerbandinganKendaraan extends Component
             'KTB' => '#8E44AD'
         ];
     
-        // Hitung total kendaraan masuk dan keluar untuk Selatan
-        $totalMasukSelatan = $data->sum('total_kendaraan');
-        $totalKeluarSelatan = $totalMasukSelatan;
+        $dataArah = [];
     
-        // Buat data kendaraan untuk Selatan berdasarkan hasil query
-        $jenisSelatan = [];
-        foreach ($colorMapping as $kode => $color) {
-            $item = $data->firstWhere('jenis_kendaraan', $kode);
-            $totalKendaraan = $item->total_kendaraan ?? 0;
+        foreach ($idArahMapping as $id => $arah) {
+            $result = collect(DB::select("CALL get_kendaraan_breakdown(?, ?)", [$periode, $id]));
     
-            $jenisSelatan[] = [
-                'name' => $kode,
-                'masuk' => $totalKendaraan,
-                'keluar' => $totalKendaraan,
-                'color' => $color
+            $totalKendaraan = $result->sum('total_kendaraan');
+    
+            $jenisData = [];
+            foreach ($colorMapping as $kode => $color) {
+                $item = $result->firstWhere('jenis_kendaraan', $kode);
+                $jumlah = $item->total_kendaraan ?? 0;
+    
+                $jenisData[] = [
+                    'name' => $kode,
+                    'masuk' => $jumlah,
+                    'keluar' => $jumlah,
+                    'color' => $color
+                ];
+            }
+    
+            $dataArah[] = [
+                'arah' => $arah,
+                'lokasi' => $lokasiMapping[$arah],
+                'totalMasuk' => $totalKendaraan,
+                'totalKeluar' => $totalKendaraan,
+                'jenis' => $jenisData
             ];
         }
     
-        // Bangun struktur data untuk semua arah
-        foreach ($lokasiMapping as $arah => $lokasi) {
-            if ($arah === 'Timur') {
-                // Masukkan data Selatan yang asli
-                $dataArah[] = [
-                    'arah' => $arah,
-                    'lokasi' => $lokasi,
-                    'totalMasuk' => $totalMasukSelatan,
-                    'totalKeluar' => $totalKeluarSelatan,
-                    'jenis' => $jenisSelatan
-                ];
-            } else {
-                // Set semua data menjadi 0 untuk arah selain Selatan
-                $jenisKosong = [];
-                foreach ($colorMapping as $kode => $color) {
-                    $jenisKosong[] = [
-                        'name' => $kode,
-                        'masuk' => 0,
-                        'keluar' => 0,
-                        'color' => $color
-                    ];
-                }
-    
-                $dataArah[] = [
-                    'arah' => $arah,
-                    'lokasi' => $lokasi,
-                    'totalMasuk' => 0,
-                    'totalKeluar' => 0,
-                    'jenis' => $jenisKosong
-                ];
-            }
-        }
-    
         $this->dataArah = $dataArah;
-        // 🔥 Dispatch event ke Alpine.js
+    
+        // 🔥 Kirim event ke Alpine untuk update chart
         $this->dispatch('updateChartDistribusi', detail: $dataArah);
     }
-        
     
     public function render()
     {
