@@ -135,7 +135,6 @@
         
                         this.populateChart(seriesData);
                         this.populateBreakdownMasuk(breakdownMasuk);
-                        console.log(breakdownMasuk, "TEST")
                         this.populateBreakdownKeluar(breakdownKeluar);
         
                         document.addEventListener('updateChartData2', (event) => {
@@ -163,7 +162,7 @@
                     populateChart(seriesData) {
                         var categories = seriesData.map(item => item.name);
                         var masukData = seriesData.map(item => parseInt(item.masuk));
-                        var keluarData = seriesData.map(item => parseInt(item.keluar));
+                        var keluarData = seriesData.map(item => Math.abs(parseInt(item.keluar)));
 
         
                         window.trafficChart = Highcharts.chart('trafficChart', {
@@ -212,7 +211,7 @@
                     updateChart(seriesData) {
                         let categories = seriesData.map(item => item.name);
                         let masukData = seriesData.map(item => parseInt(item.masuk));
-                        let keluarData = seriesData.map(item => parseInt(item.keluar));
+                        let keluarData = seriesData.map(item => Math.abs(parseInt(item.keluar)));
         
                         if (window.trafficChart) {
                             window.trafficChart.destroy();
