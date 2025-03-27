@@ -363,7 +363,7 @@
             const socket = io("https://sxe-data.layanancerdas.id");
 
             const rooms = [
-                "result_detection",     // update-cctv-1
+                "result_detection_2",     // update-cctv-1
                 "result_detection_3",   // update-cctv-3
                 "result_detection_4",   // update-cctv-4
                 "result_detection_5"    // update-cctv-5

@@ -53,7 +53,7 @@ class CctvStream extends Component
             //     }
             //     $this->detections1 = array_slice($this->detections1, 0, 100);
             //     break;
-            case 'result_detection':
+            case 'result_detection_2':
                 $this->imageUrl2 = $data['image_url'];
                 foreach ($data['detections'] as $detection) {
                     array_unshift($this->detections2, $detection);
