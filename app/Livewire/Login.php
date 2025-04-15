@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Laravel\Socialite\Facades\Socialite;
 
 class Login extends Component
 {
@@ -266,6 +267,36 @@ class Login extends Component
 
             throw $e;
         }
+    }
+
+    public function loginWithSSOKeycloak()
+    {
+        return Socialite::driver('keycloak')->redirect();
+    }
+
+    public function handleSSOCallbackKeycloak(Request $request)
+    {
+        $userData = Socialite::driver('keycloak')->user();
+        
+        $user = User::updateOrCreate(
+            ['email' => $userData['email']],
+            [
+                'name' => $userData['name'] ?? 'SSO User',
+                'password' => bcrypt(Str::random(16))
+            ]
+        );
+
+
+        // Login pengguna
+        Auth::login($user);
+
+        // Simpan token ke session
+        session([
+            'sso_access_token' => $userData->token,
+            'sso_token_type' => 'Bearer'
+        ]);
+
+        return redirect()->route("dashboard")->with('success', 'Login berhasil!');
     }
     //END-SSOController
 }

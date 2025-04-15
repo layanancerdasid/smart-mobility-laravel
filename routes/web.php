@@ -25,8 +25,8 @@ Route::get('/', function () {
 
 // Authentication routes
 Route::get('/login', Login::class)->name('login');
-Route::get('/auth/sso', [Login::class, 'loginWithSSO'])->name('sso.login');
-Route::get('/auth/callback', [Login::class, 'handleSSOCallback'])->name('sso.callback');
+Route::get('/auth/sso', [Login::class, 'loginWithSSOKeycloak'])->name('sso.login');
+Route::get('/auth/callback', [Login::class, 'handleSSOCallbackKeycloak'])->name('sso.callback');
 
 // Protected routes
 Route::middleware(['auth'])->group(function () {
