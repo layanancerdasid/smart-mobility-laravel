@@ -23,7 +23,7 @@ class Login extends Component
         ]);
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            return redirect()->route('dashboard');
+            return redirect()->route('simulations');
         }
 
         session()->flash('error', 'Email atau password salah.');
@@ -296,7 +296,7 @@ class Login extends Component
             'sso_token_type' => 'Bearer'
         ]);
 
-        return redirect()->route("dashboard")->with('success', 'Login berhasil!');
+        return redirect()->route("simulations")->with('success', 'Login berhasil!');
     }
     //END-SSOController
 }
