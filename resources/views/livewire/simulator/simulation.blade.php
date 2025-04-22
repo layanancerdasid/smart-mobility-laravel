@@ -489,19 +489,30 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        Highcharts.chart('traffic-chart', {
-            chart: { type: 'line' },
-            title: { text: '' },
-            xAxis: { categories: ['Morning', 'Day', 'Evening'] },
-            yAxis: { title: { text: 'vehicles per day time ' } },
-            series: [
-                { name: 'North', data: [2156, 2238, 2177], color: 'blue' },
-                { name: 'East', data: [3590, 3558, 3517], color: 'red' },
-                { name: 'South', data: [3072, 3058, 3096], color: 'orange' },
-                { name: 'West', data: [3612, 3613, 3618], color: 'yellow' }
-            ]
-        });
+    document.addEventListener("DOMContentLoaded", function () {
+        fetch("/api/traffic-analysis")
+            .then(res => res.json())
+            .then(data => {
+                const timeSlots = ['Morning', 'Day', 'Evening'];
+                const directions = ['north', 'east', 'south', 'west'];
+                const seriesData = directions.map(dir => {
+                    return {
+                        name: dir.charAt(0).toUpperCase() + dir.slice(1),
+                        data: timeSlots.map(slot => {
+                            const found = data.find(d => d.waktu_puncak === slot && d.arah_masuk.toLowerCase() === dir);
+                            return found ? found.total_IN : 0;
+                        })
+                    };
+                });
+
+                Highcharts.chart('traffic-chart', {
+                    chart: { type: 'line' },
+                    title: { text: '' },
+                    xAxis: { categories: ['Morning (07.00–08.00)', 'Day (12.00–13.00)', 'Evening (16.45–17.45)'] },
+                    yAxis: { title: { text: 'Saturation (vehicle/hour)' }, min: 2000 },
+                    series: seriesData
+                });
+            });
     });
     // document.addEventListener("DOMContentLoaded", function () {
     //     let tabs = ["pills-data-source-tab", "pills-profile-tab", "pills-contact-tab", "pills-ulala-tab"];

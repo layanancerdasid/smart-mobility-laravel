@@ -119,3 +119,7 @@ Route::get('/api/traffic-data', function (Request $request) {
         'design2_values' => $design2Data
     ]);
 });
+
+Route::get('/api/traffic-analysis', [App\Http\Controllers\TrafficAnalysisController::class, 'index']);
+Route::get('/api/traffic-analysis/intersection', [App\Http\Controllers\TrafficAnalysisController::class, 'intersection']);
+
