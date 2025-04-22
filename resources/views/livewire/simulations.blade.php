@@ -32,7 +32,7 @@
                                     </div>
                                     <a href="{{ route($simulation['route']) }}"
                                         class="btn btn-light btn-custom px-4 py-2">
-                                        Temukan {{ $simulation['title'] }}
+                                        Find {{ $simulation['title'] }}
                                     </a>
                                 </div>
                             </div>

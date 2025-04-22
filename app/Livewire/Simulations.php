@@ -12,7 +12,7 @@ class Simulations extends Component
             'id' => 1,
             'title' => 'Traffic Flow',
             'subtitle' => 'Smart Mobility',
-            'description' => 'Simulasi untuk mengelola aliran lalu lintas dengan efisien.',
+            'description' => 'Simulation for efficiently managing traffic flow.',
             'image' => 'https://unsplash.com/photos/photo-of-roadway-between-buildings-XVUQfCkcaUg',
             'route' => 'traffic-flow'
         ],
@@ -20,7 +20,7 @@ class Simulations extends Component
             'id' => 2,
             'title' => 'Congestion',
             'subtitle' => 'Smart Mobility',
-            'description' => 'Simulasi untuk mengatasi kemacetan di area perkotaan.',
+            'description' => 'Simulation for addressing traffic congestion in urban areas.',
             'image' => 'https://unsplash.com/photos/a-crowded-street-filled-with-lots-of-traffic-VubGkfQjNFk',
             'route' => 'congestions'
         ],
@@ -28,7 +28,7 @@ class Simulations extends Component
             'id' => 3,
             'title' => 'Intersection',
             'subtitle' => 'Smart Mobility',
-            'description' => 'Simulasi untuk mengelola persimpangan dengan aman.',
+            'description' => 'Simulation for safely managing intersections.',
             'image' => 'https://unsplash.com/photos/aerial-photography-of-buildings-and-vehicles-OkOE0G_GC8Q',
             'route' => 'simulator'
         ],
@@ -36,11 +36,11 @@ class Simulations extends Component
             'id' => 4,
             'title' => 'Travel Time',
             'subtitle' => 'Smart Mobility',
-            'description' => 'Simulasi untuk memperkirakan waktu perjalanan di rute tertentu.',
+            'description' => 'Simulation for estimating travel time on specific routes.',
             'image' => 'https://unsplash.com/photos/time-lapse-photography-of-road-during-nighttime-bi2UXH9GzJs',
             'route' => 'travel-times'
         ],
-    ];
+    ];    
 
     public function render()
     {

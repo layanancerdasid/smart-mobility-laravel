@@ -4,7 +4,7 @@
             <button class="nav-link active" id="pills-data-source-tab" data-bs-toggle="pill" data-bs-target="#pills-data-source" type="button" role="tab" aria-controls="pills-data-source" aria-selected="true">Data Source</button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Setting Parameter</button>
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile" type="button" role="tab" aria-controls="pills-profile" aria-selected="false">Paramater Setting</button>
         </li>
         <li class="nav-item" role="presentation">
             <button class="nav-link" id="pills-contact-tab" data-bs-toggle="pill" data-bs-target="#pills-contact" type="button" role="tab" aria-controls="pills-contact" aria-selected="false">Preview</button>
@@ -18,7 +18,7 @@
     <div class="tab-content mt-3" id="pills-tabContent">
         <div class="tab-pane fade show active" id="pills-data-source" role="tabpanel" aria-labelledby="pills-data-source-tab">
             {{-- <div id="sub-page-1-1" class="sub-page">
-                <h6>Select Data Source</h6>
+                <!-- <h6>Select Data Source</h6> -->
                 <div class="d-flex justify-content-left mt-3">
                     <button class="btn custom-btn me-3">
                         <i class="bi bi-plus-lg"></i> Data Dummy
@@ -29,34 +29,34 @@
                 </div>
             </div> --}}
             {{-- <div id="sub-page-1-1" class="sub-page">
-                <h6>Select Data Source</h6>
+                <!-- <h6>Select Data Source</h6> -->
                 <div class="d-flex justify-content-left mt-3">
-                    <button class="btn custom-btn me-3" id="btn-dummy-data">
+                    <!-- <button class="btn custom-btn me-3" id="btn-dummy-data">
                         <i class="bi bi-plus-lg"></i> Data Dummy
                     </button>
                     <button class="btn custom-btn" id="btn-real-data">
                         <i class="bi bi-plus-lg"></i> Data Real
-                    </button>
+                    </button> -->
                 </div>
                 <!-- Bagian pilihan tanggal untuk Data Dummy -->
                 <div id="dummy-data-date-selection" style="display: none; margin-top: 15px;">
-                    <label for="dummy-date">Pilih Tanggal Data:</label>
+                    <label for="dummy-date">Select Date:</label>
                     <input type="date" id="dummy-date" class="form-control" value="2024-02-13">
                 </div>
             </div> --}}
             <div id="sub-page-1-1" class="sub-page">
-                <h6>Select Data Source</h6>
+                <!-- <h6>Select Data Source</h6> -->
                 <div class="d-flex justify-content-left mt-3">
-                    <button class="btn custom-btn me-3" id="btn-dummy-data">
+                    <!-- <button class="btn custom-btn me-3" id="btn-dummy-data">
                         <i class="bi bi-plus-lg"></i> Data Dummy
                     </button>
                     <button class="btn custom-btn" id="btn-real-data">
                         <i class="bi bi-plus-lg"></i> Data Real
-                    </button>
+                    </button> -->
                 </div>
                 <!-- Bagian pilihan tanggal untuk Data Dummy -->
                 <div id="dummy-data-date-selection" style="display: none; margin-top: 15px;">
-                    <label for="dummy-date">Pilih Tanggal Data:</label>
+                    <label for="dummy-date">Select Date:</label>
                     <input type="date" id="dummy-date" class="form-control" value="2024-02-13">
                 </div>
             </div>
@@ -559,15 +559,18 @@
         const btnReal = document.getElementById("btn-real-data");
         const dummyDateSelection = document.getElementById("dummy-data-date-selection");
 
-        btnDummy.addEventListener("click", function() {
-            selectedDataSource = "dummy";
-            dummyDateSelection.style.display = "block";
-        });
+        // munculkan tanggal langsung
+        dummyDateSelection.style.display = "block";
 
-        btnReal.addEventListener("click", function() {
-            selectedDataSource = "real";
-            dummyDateSelection.style.display = "none";
-        });
+        // btnDummy.addEventListener("click", function() {
+        //     selectedDataSource = "dummy";
+        //     dummyDateSelection.style.display = "block";
+        // });
+
+        // btnReal.addEventListener("click", function() {
+        //     selectedDataSource = "real";
+        //     dummyDateSelection.style.display = "none";
+        // });
 
         // Event untuk memilih kota
         const dropdownItems = document.querySelectorAll('.dropdown-item');
@@ -601,10 +604,10 @@
             if (currentTab === 0) {
                 if (currentSubPage === 1) {
                     // Pastikan data source telah dipilih
-                    if (selectedDataSource === "") {
-                        alert("Silakan pilih Data Source (Data Dummy atau Data Real) terlebih dahulu.");
-                        return false;
-                    }
+                    // if (selectedDataSource === "") {
+                    //     alert("Silakan pilih Data Source (Data Dummy atau Data Real) terlebih dahulu.");
+                    //     return false;
+                    // }
                     // Jika Data Dummy, pastikan tanggal tidak kosong
                     if (selectedDataSource === "dummy") {
                         let dummyDate = document.getElementById("dummy-date").value;
@@ -631,7 +634,7 @@
                     }
                 }
             }
-            // Validasi untuk Tab 2 (Setting Parameter)
+            // Validasi untuk Tab 2 (Paramater Setting)
             else if (currentTab === 1) {
                 // Validasi input waktu lampu lalu lintas
                 let red = document.getElementById("red-light").value;
