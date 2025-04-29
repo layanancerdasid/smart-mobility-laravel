@@ -23,7 +23,12 @@ class Login extends Component
         ]);
 
         if (Auth::attempt(['email' => $this->email, 'password' => $this->password])) {
-            return redirect()->route('simulations');
+            $user = Auth::user();
+            if ($user->email === 'dishub_yogya@example.com') {
+                return redirect()->route('dashboard');
+            } else {
+                return redirect()->route('simulations');  // => ga semua user ke simulations
+            }
         }
 
         session()->flash('error', 'Email atau password salah.');

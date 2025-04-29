@@ -52,6 +52,15 @@ class SurveyTable extends Component
                 'kb' => rand(0, 10),
                 'ktb' => rand(0, 10),
             ];
+
+            $this->data[] = [
+                'periode' => $periode,
+                'waktu' => $formattedTime,
+                'sm' => 0, // Simulasi data
+                'ks' => 0,
+                'kb' => 0,
+                'ktb' => 0,
+            ];
     
             $currentTime = $endTime;
         }

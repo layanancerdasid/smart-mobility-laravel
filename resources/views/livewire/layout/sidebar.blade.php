@@ -13,8 +13,28 @@
         </button>
 
         <!-- Navigation Items -->
+        {{-- TODO :: REFACTOR AND MAKE IT CLEAN -- DEADLINE 1 MAY Night 2025--}}
+        @php
+            $email = auth()->user()->email;
+        @endphp
         <div class="nav flex-column">
-            
+            @if (in_array($email, ['dishub_yogya@example.com', 'admin@example.com']))
+            <a href="{{ route('dashboard') }}"
+                class="nav-link d-flex align-items-center {{ request()->routeIs('dashboard') ? 'active' : '' }}">
+                <div wire:ignore>
+                    <i data-lucide="layout-dashboard" class="text-white"></i>
+                </div>
+                <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Dashboard</span>
+            </a>
+            <a href="{{ route('survey') }}"
+                class="nav-link d-flex align-items-center {{ request()->routeIs('maps') ? 'active' : '' }}">
+                <div wire:ignore>
+                    <i data-lucide="binoculars" class="text-white"></i>
+                </div>
+                <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Survey</span>
+            </a>
+            @endif
+            @if (in_array($email, ['peneliti@example.com', 'admin@example.com']))
             <a href="{{ route('simulations') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('simulations') ? 'active' : '' }}">
                 <div wire:ignore>
@@ -29,13 +49,7 @@
                 </div>
                 <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Maps</span>
             </a>
-            {{-- <a href="{{ route('survey') }}"
-                class="nav-link d-flex align-items-center {{ request()->routeIs('maps') ? 'active' : '' }}">
-                <div wire:ignore>
-                    <i data-lucide="binoculars" class="text-white"></i>
-                </div>
-                <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Survey</span>
-            </a> --}}
+            @endif
             {{-- 
             <a href="{{ route('cameras') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('cameras') ? 'active' : '' }}">
