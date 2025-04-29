@@ -14,21 +14,7 @@
 
         <!-- Navigation Items -->
         <div class="nav flex-column">
-            <a href="{{ route('dashboard') }}"
-                class="nav-link d-flex align-items-center {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                <div wire:ignore>
-                    <i data-lucide="home" class="text-white"></i>
-                </div>
-                <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Home</span>
-            </a>
-
-            <a href="{{ route('dashboard') }}"
-                class="nav-link d-flex align-items-center {{ request()->routeIs('dashboard') ? 'active' : '' }}">
-                <div wire:ignore>
-                    <i data-lucide="layout-dashboard" class="text-white"></i>
-                </div>
-                <span class="text-white ms-3" style="display: {{ $collapsed ? 'none' : 'inline' }}">Dashboard</span>
-            </a>
+            
             <a href="{{ route('simulations') }}"
                 class="nav-link d-flex align-items-center {{ request()->routeIs('simulations') ? 'active' : '' }}">
                 <div wire:ignore>

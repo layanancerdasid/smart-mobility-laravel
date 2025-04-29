@@ -1,0 +1,16 @@
+services:
+  # PHP + Laravel Application
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: smartx-mobility
+    restart: unless-stopped
+    networks:
+      - smartx-mobility
+    ports:
+      - "8070:80"
+
+networks:
+  smartx-mobility:
+    driver: bridge
