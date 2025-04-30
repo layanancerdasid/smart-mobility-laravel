@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
+
 
 class TrafficAnalysisController extends Controller
 {
@@ -81,4 +83,19 @@ class TrafficAnalysisController extends Controller
 
         return response()->json($results);
     }
+
+    public function top5(Request $request)
+    {
+        $date = $request->query('date');
+
+        $data = DB::table('arus')
+            ->select('id', 'ID_Simpang', 'tipe_pendekat', 'dari_arah', 'ke_arah', 'SM', 'MP', 'AUP', 'TR', 'waktu')
+            ->whereDate(DB::raw("CONVERT_TZ(waktu, '+00:00', '+07:00')"), $date)
+            ->orderBy('waktu', 'asc')
+            ->limit(5)
+            ->get();
+
+        return response()->json($data);
+    }
+
 }

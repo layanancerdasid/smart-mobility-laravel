@@ -122,4 +122,6 @@ Route::get('/api/traffic-data', function (Request $request) {
 
 Route::get('/api/traffic-analysis', [App\Http\Controllers\TrafficAnalysisController::class, 'index']);
 Route::get('/api/traffic-analysis/intersection', [App\Http\Controllers\TrafficAnalysisController::class, 'intersection']);
+Route::get('/api/traffic-analysis/top5-data', [App\Http\Controllers\TrafficAnalysisController::class, 'top5']);
+
 
