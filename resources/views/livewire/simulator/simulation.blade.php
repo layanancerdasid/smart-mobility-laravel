@@ -42,6 +42,7 @@
                 <div id="dummy-data-date-selection" style="display: none; margin-top: 15px;">
                     <label for="dummy-date">Select Date:</label>
                     <input type="date" id="dummy-date" class="form-control" value="2024-02-13">
+                    <button id="btn-load-top5" class="btn btn-primary">Load Top 5 Data</button>
                 </div>
             </div> --}}
             <div id="sub-page-1-1" class="sub-page">
@@ -58,7 +59,31 @@
                 <div id="dummy-data-date-selection" style="display: none; margin-top: 15px;">
                     <label for="dummy-date">Select Date:</label>
                     <input type="date" id="dummy-date" class="form-control" value="2024-02-13">
+                    <br>
+                    <button id="btn-load-top5" class="btn btn-primary">Load Top 5 Data</button>
                 </div>
+                <div class="table-responsive mt-3" id="top5-table-wrapper" style="display: none;">
+                    <table class="table table-bordered">
+                        <thead class="table-primary text-center">
+                            <tr>
+                                <th>ID</th>
+                                <th>ID Simpang</th>
+                                <th>Tipe Pendekat</th>
+                                <th>Dari Arah</th>
+                                <th>Ke Arah</th>
+                                <th>SM</th>
+                                <th>MP</th>
+                                <th>AUP</th>
+                                <th>TR</th>
+                                <th>Waktu</th>
+                            </tr>
+                        </thead>
+                        <tbody id="top5-table-body">
+                            <!-- Baris data -->
+                        </tbody>
+                    </table>
+                </div>
+
             </div>
             {{-- <div id="sub-page-1-2" class="sub-page" style="display: none;">
                 <h6> Design intersection conditions to accommodate dynamic input traffic flows </h6>
@@ -489,7 +514,85 @@
 </div>
 
 <script>
+    function loadTop5Data(selectedDate) {
+        const wrapper = document.getElementById("top5-table-wrapper");
+        const tbody = document.getElementById("top5-table-body");
+
+        wrapper.style.display = "block"; // Tampilkan tabel baru
+        tbody.innerHTML = `
+            <tr>
+                <td colspan="10" class="text-center">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                </td>
+            </tr>
+        `;
+
+        fetch(`/api/traffic-analysis/top5-data?date=${selectedDate}`)
+            .then(res => res.json())
+            .then(data => {
+                tbody.innerHTML = "";
+
+                if (data.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="10" class="text-center text-muted">No data available for selected date.</td>
+                        </tr>
+                    `;
+                    return;
+                }
+
+                data.forEach(row => {
+                    const tr = document.createElement("tr");
+
+                    tr.innerHTML = `
+                        <td>${row.id}</td>
+                        <td>${row.ID_Simpang}</td>
+                        <td>${row.tipe_pendekat}</td>
+                        <td>${row.dari_arah}</td>
+                        <td>${row.ke_arah}</td>
+                        <td>${row.SM}</td>
+                        <td>${row.MP}</td>
+                        <td>${row.AUP}</td>
+                        <td>${row.TR}</td>
+                        <td>${row.waktu}</td>
+                    `;
+
+                    tbody.appendChild(tr);
+                });
+            })
+            .catch(error => {
+                console.error(error);
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="10" class="text-center text-danger">Failed to load data.</td>
+                    </tr>
+                `;
+            });
+    }
+
+
     document.addEventListener("DOMContentLoaded", function () {
+        const btnLoadTop5 = document.getElementById("btn-load-top5");
+        const dummyDateInput = document.getElementById("dummy-date");
+
+        if (btnLoadTop5) { // <-- CEK ADA atau tidak
+            btnLoadTop5.addEventListener("click", function () {
+                const selectedDate = dummyDateInput.value;
+                if (selectedDate) {
+                    loadTop5Data(selectedDate);
+                } else {
+                    alert("Please select a date first.");
+                }
+            });
+        }
+    });
+
+
+
+    // Fungsi untuk menghasilkan data analisis secara dinamis dan mengisi tabel sekaligus menyimpan data saturation
+    function generateTrafficAnalysis() {
         fetch("/api/traffic-analysis")
             .then(res => res.json())
             .then(data => {
@@ -500,64 +603,22 @@
                         name: dir.charAt(0).toUpperCase() + dir.slice(1),
                         data: timeSlots.map(slot => {
                             const found = data.find(d => d.waktu_puncak === slot && d.arah_masuk.toLowerCase() === dir);
-                            return found ? found.total_IN : 0;
+                            return found ? parseInt(found.total_IN) : 0;
                         })
                     };
                 });
+
+                console.log(seriesData);
 
                 Highcharts.chart('traffic-chart', {
                     chart: { type: 'line' },
                     title: { text: '' },
                     xAxis: { categories: ['Morning (07.00–08.00)', 'Day (12.00–13.00)', 'Evening (16.45–17.45)'] },
-                    yAxis: { title: { text: 'Saturation (vehicle/hour)' }, min: 2000 },
+                    yAxis: { title: { text: 'Saturation (vehicle/hour)' }, min: 0 },
                     series: seriesData
                 });
             });
-    });
-    // document.addEventListener("DOMContentLoaded", function () {
-    //     let tabs = ["pills-data-source-tab", "pills-profile-tab", "pills-contact-tab", "pills-ulala-tab"];
-    //     let currentTab = 0;
-    //     let currentSubPage = 1; // Mulai dari sub-page 1.1
-
-    //     function updateTabUI() {
-    //         if (currentTab === 0) { // Jika masih di "Data Source"
-    //             document.querySelectorAll(".sub-page").forEach((page, index) => {
-    //                 page.style.display = (index + 1 === currentSubPage) ? "block" : "none";
-    //             });
-    //             document.getElementById("tab-page-number").innerText = `1.${currentSubPage}/4`;
-
-    //         } else {
-    //             document.getElementById(tabs[currentTab]).click(); // Aktifkan tab sesuai index
-    //             document.getElementById("tab-page-number").innerText = `${currentTab + 1}/4`;
-    //         }
-
-    //         // Sembunyikan tombol jika di awal atau akhir
-    //         document.querySelector(".nav-btn:first-of-type").style.display = (currentTab === 0 && currentSubPage === 1) ? "none" : "inline-block";
-    //         document.querySelector(".nav-btn:last-of-type").style.display = (currentTab === tabs.length - 1) ? "none" : "inline-block";
-    //     }
-
-    //     window.nextTab = function () {
-    //         if (currentTab === 0 && currentSubPage < 2) {
-    //             currentSubPage++;
-    //         } else if (currentTab < tabs.length - 1) {
-    //             currentTab++;
-    //             currentSubPage = 1; // Reset sub-page saat berpindah tab
-    //         }
-    //         updateTabUI();
-    //     };
-
-    //     window.prevTab = function () {
-    //         if (currentTab === 0 && currentSubPage > 1) {
-    //             currentSubPage--;
-    //         } else if (currentTab > 0) {
-    //             currentTab--;
-    //             currentSubPage = 1; // Reset sub-page saat kembali tab
-    //         }
-    //         updateTabUI();
-    //     };
-
-    //     updateTabUI(); // Set awal agar tombol pertama tidak muncul
-    // });
+    };
 
     document.addEventListener("DOMContentLoaded", function () {
         let tabs = ["pills-data-source-tab", "pills-profile-tab", "pills-contact-tab", "pills-ulala-tab"];
@@ -691,16 +752,6 @@
         const btnDummy = document.getElementById("btn-dummy-data");
         const btnReal = document.getElementById("btn-real-data");
         const dummyDateSelection = document.getElementById("dummy-data-date-selection");
-
-        // Tampilkan pilihan tanggal jika Data Dummy diklik
-        btnDummy.addEventListener("click", function() {
-            dummyDateSelection.style.display = "block";
-        });
-
-        // Sembunyikan pilihan tanggal jika Data Real diklik
-        btnReal.addEventListener("click", function() {
-            dummyDateSelection.style.display = "none";
-        });
     });
     document.addEventListener("DOMContentLoaded", function() {
         const dropdownItems = document.querySelectorAll('.dropdown-item');
@@ -734,90 +785,79 @@
         
         // Fungsi untuk menghasilkan data analisis secara dinamis dan mengisi tabel sekaligus menyimpan data saturation
         function generateAnalysisData() {
-            const timeSlots = [
-                { label: "Morning (07.00-08.00)", count: 4 },
-                { label: "Day (12.00-13.00)", count: 4 },
-                { label: "Evening (16.45-17.45)", count: 4 }
-            ];
-            const arms = ["North", "East", "South", "West"];
-            const tbody = document.getElementById("analysis-table-body");
-            tbody.innerHTML = "";
-            
-            // Reset data saturation
-            saturationData["North"] = [];
-            saturationData["East"] = [];
-            saturationData["South"] = [];
-            saturationData["West"] = [];
-            
-            timeSlots.forEach(slot => {
-                for (let i = 0; i < slot.count; i++) {
-                    const tr = document.createElement("tr");
-                    // Tampilkan nama time slot hanya di baris pertama (menggunakan rowspan)
-                    if (i === 0) {
-                        const tdTime = document.createElement("td");
-                        tdTime.rowSpan = slot.count;
-                        tdTime.className = "align-middle";
-                        tdTime.textContent = slot.label;
-                        tr.appendChild(tdTime);
-                    }
-                    // Kolom Arm
-                    const tdArm = document.createElement("td");
-                    tdArm.textContent = arms[i];
-                    tr.appendChild(tdArm);
-                    
-                    // Kolom Saturation (vehicle/hour)
-                    const saturation = randomInt(2000, 4000);
-                    // Simpan nilai saturation untuk arm terkait
-                    saturationData[arms[i]].push(saturation);
-                    const tdSaturation = document.createElement("td");
-                    tdSaturation.textContent = saturation;
-                    tr.appendChild(tdSaturation);
-                    
-                    // Kolom Flow Ratio
-                    const flowRatio = randomFloat(0.01, 0.2, 3);
-                    const tdFlow = document.createElement("td");
-                    tdFlow.textContent = flowRatio;
-                    tr.appendChild(tdFlow);
-                    
-                    // Kolom Cycle time(s)
-                    const cycleTime = randomInt(100, 150);
-                    const tdCycle = document.createElement("td");
-                    tdCycle.textContent = cycleTime;
-                    tr.appendChild(tdCycle);
-                    
-                    // Kolom Green Time(s)
-                    const greenTime = randomInt(20, 30);
-                    const tdGreen = document.createElement("td");
-                    tdGreen.textContent = greenTime;
-                    tr.appendChild(tdGreen);
-                    
-                    // Kolom Capacity (vehicle/hour)
-                    const capacity = randomInt(400, 800);
-                    const tdCapacity = document.createElement("td");
-                    tdCapacity.textContent = capacity;
-                    tr.appendChild(tdCapacity);
-                    
-                    tbody.appendChild(tr);
-                }
-            });
+            fetch("/api/traffic-analysis/intersection")
+                .then(res => res.json())
+                .then(rawData => {
+                    const tbody = document.getElementById("analysis-table-body");
+                    tbody.innerHTML = "";
+
+                    // 1. Normalize key supaya mudah diakses
+                    const data = rawData.map(item => ({
+                        waktu: item["waktu_puncak"],
+                        arm: item["arm"],
+                        saturation: parseInt(item["Saturation (vehicle/hour)"]),
+                        flow_ratio: parseFloat(item["Flow Ratio"]),
+                        cycle_time: item["Cycle time(s)"],
+                        green_time: item["Green Time(s)"],
+                        capacity: item["Capacity (vehicle/hour)"]
+                    }));
+
+                    // aman!
+                    // console.log("Data after normalisasi ", data)
+
+                    const timeSlots = [
+                        { label: "Morning (07.00-08.00)", key: "Morning" },
+                        { label: "Day (12.00-13.00)", key: "Day" },
+                        { label: "Evening (16.45-17.45)", key: "Evening" }
+                    ];
+
+                    // 2. Grouped by waktu
+                    const grouped = {};
+                    data.forEach(row => {
+                        if (!grouped[row.waktu]) grouped[row.waktu] = [];
+                        console.log("Grouped by waktu: ", row)
+                        grouped[row.waktu].push(row);
+                    });
+
+                    // aman!
+                    // console.log("Data after grouping ", grouped)
+
+                    // 3. Render to table
+                    timeSlots.forEach(slot => {
+                        const rows = grouped[slot.label] || [];
+
+                        // console.log("slot ", slot)
+
+                        rows.forEach((row, index) => {
+                            const tr = document.createElement("tr");
+
+                            if (index === 0) {
+                                const tdTime = document.createElement("td");
+                                tdTime.rowSpan = rows.length;
+                                tdTime.classList.add("align-middle");
+                                tdTime.textContent = slot.label;
+                                tr.appendChild(tdTime);
+                            }
+
+                            // console.log("Prepare to load ", row)
+
+                            tr.innerHTML += `
+                                <td>${row.arm}</td>
+                                <td>${row.saturation}</td>
+                                <td>${row.flow_ratio.toFixed(3)}</td>
+                                <td>${row.cycle_time}</td>
+                                <td>${row.green_time}</td>
+                                <td>${row.capacity}</td>
+                            `;
+
+                            tbody.appendChild(tr);
+                        });
+                    });
+                });
         }
-        
-        // Fungsi untuk menghasilkan grafik menggunakan Highcharts
-        function generateChart(data) {
-            const categories = ["Morning (07.00-08.00)", "Day (12.00-13.00)", "Evening (16.45-17.45)"];
-            Highcharts.chart('traffic-chart', {
-                chart: { type: 'line' },
-                title: { text: '' },
-                xAxis: { categories: categories },
-                yAxis: { title: { text: 'Saturation (vehicle/hour)' } },
-                series: [
-                    { name: 'North', data: data["North"] },
-                    { name: 'East', data: data["East"] },
-                    { name: 'South', data: data["South"] },
-                    { name: 'West', data: data["West"] }
-                ]
-            });
-        }
+
+
+
         
         // Fungsi untuk menampilkan loading screen selama 45 detik, kemudian memuat data dan grafik
         function loadAnalysisData() {
@@ -832,7 +872,7 @@
             // Simulasi delay 45 detik (45000 ms)
             setTimeout(function() {
                 generateAnalysisData();
-                generateChart(saturationData);
+                generateTrafficAnalysis();
                 loadingScreen.style.display = "none";
                 analysisContent.style.display = "block";
             }, 45000);
